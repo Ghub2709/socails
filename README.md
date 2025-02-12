@@ -14,11 +14,10 @@ A modern landing page and thank you page for SOCAILS, an AI-powered social media
 
 ```
 SOCAILS/
-├── public/           # Static assets and HTML files
-│   ├── index.html    # Landing page
-│   ├── thank-you.html# Thank you page
-│   ├── styles.css    # Shared styles
-│   └── icons/        # SVG icons
+├── index.html        # Landing page
+├── thank-you.html    # Thank you page
+├── styles.css        # Shared styles
+├── *.svg             # SVG icons and images
 ├── server/           # Server-side code (for local development)
 └── README.md         # Project documentation
 ```
@@ -38,7 +37,7 @@ SOCAILS/
 
 ## Deployment
 
-The site is deployed using GitHub Pages. The `public` directory contains all the static files needed for the website.
+The site is deployed using GitHub Pages and served directly from the root directory.
 
 ## Technologies Used
 
