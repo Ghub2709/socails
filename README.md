@@ -47,4 +47,4 @@ The site is deployed using GitHub Pages. The `public` directory contains all the
 - JavaScript
 - EmailJS for form handling
 - Font Awesome for icons
-- Google Fonts (Inter) 
+- Google Fonts (Inter)
