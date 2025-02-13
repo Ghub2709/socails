@@ -207,9 +207,11 @@
         // Initialize EmailJS
         function initializeEmailJS() {
             try {
+                console.log('Initializing EmailJS...', !!window.EMAILJS_CONFIG);
                 if (!window.EMAILJS_CONFIG) {
                     throw new Error('EmailJS configuration not found');
                 }
+                console.log('EmailJS configuration loaded successfully');
                 
                 emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY);
                 

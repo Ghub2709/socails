@@ -33,6 +33,10 @@ jobs:
             TEMPLATE_ID: '${{ secrets.EMAILJS_TEMPLATE_ID }}'
           };" > config.js
           
+          # Update HTML files to handle GitHub Pages base path
+          find . -type f -name "*.html" -exec sed -i 's|href="/|href="./|g' {} +
+          find . -type f -name "*.html" -exec sed -i 's|src="/|src="./|g' {} +
+          
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

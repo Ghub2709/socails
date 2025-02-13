@@ -757,10 +757,12 @@
     <script>
         // Initialize EmailJS with config
         (function() {
+            console.log('Initializing EmailJS...', !!window.EMAILJS_CONFIG);
             if (!window.EMAILJS_CONFIG) {
                 console.error('EmailJS configuration not found');
                 return;
             }
+            console.log('EmailJS configuration loaded successfully');
             emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY);
         })();
 
