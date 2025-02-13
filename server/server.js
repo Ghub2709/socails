@@ -1,27 +1,62 @@
+require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
+const path = require('path');
 const app = express();
 
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
+// Serve static files from public directory
+app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '..')));
 
-app.post('/submit', async (req, res) => {
-    try {
-        const { business_email, linkedin_profile, website } = req.body;
-        // Add your database logic here
-        // Add your email service logic here
-        
-        res.json({ success: true, message: 'Thank you for signing up!' });
-    } catch (error) {
-        res.status(500).json({ success: false, message: 'Something went wrong' });
-    }
+// Rate limiting configuration
+const rateLimit = require('express-rate-limit');
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100 // limit each IP to 100 requests per windowMs
 });
 
-const PORT = process.env.PORT || 3001;
-const HOST = '0.0.0.0';  // Listen on all network interfaces
+// Apply rate limiting to all routes
+app.use(limiter);
 
-app.listen(PORT, HOST, () => {
-    console.log(`Server running at http://${HOST}:${PORT}`);
-    console.log(`Access locally via http://localhost:${PORT}`);
-    console.log(`Access from other devices via http://192.168.178.116:${PORT}`);
+// Secure headers
+const helmet = require('helmet');
+app.use(helmet());
+
+// EmailJS configuration endpoint with additional security
+const emailjsConfig = {
+    EMAILJS_PUBLIC_KEY: process.env.EMAILJS_PUBLIC_KEY,
+    EMAILJS_SERVICE_ID: process.env.EMAILJS_SERVICE_ID,
+    EMAILJS_TEMPLATE_ID: process.env.EMAILJS_TEMPLATE_ID
+};
+
+// Secure endpoint to get EmailJS configuration
+app.get(['/api/config', '/config'], (req, res) => {
+    // Check if all required environment variables are set
+    if (!emailjsConfig.EMAILJS_PUBLIC_KEY || !emailjsConfig.EMAILJS_SERVICE_ID || !emailjsConfig.EMAILJS_TEMPLATE_ID) {
+        return res.status(500).json({ error: 'EmailJS configuration is incomplete' });
+    }
+
+    // Set security headers
+    res.set({
+        'Content-Security-Policy': "default-src 'self'",
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'DENY',
+        'X-XSS-Protection': '1; mode=block'
+    });
+
+    // Return configuration in the format expected by both pages
+    res.json({
+        // For index.html format
+        ...emailjsConfig,
+        // For thank-you.html format
+        emailjs: {
+            publicKey: emailjsConfig.EMAILJS_PUBLIC_KEY,
+            serviceId: emailjsConfig.EMAILJS_SERVICE_ID,
+            templateId: emailjsConfig.EMAILJS_TEMPLATE_ID
+        }
+    });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 }); 

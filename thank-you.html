@@ -186,49 +186,93 @@
     <!-- EmailJS Integration -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
-        (function() {
-            emailjs.init("8FEFCWK74pLWFzXeg");
-        })();
+        // Show notification function
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="notification-icon ${type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle'}"></i>
+                    <p class="notification-message">${message}</p>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
 
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const submitButton = this.querySelector('button[type="submit"]');
-            const buttonText = submitButton.querySelector('.button-text');
-            const originalText = buttonText.textContent;
-            
-            // Show loading state
-            buttonText.textContent = 'Sending...';
-            submitButton.disabled = true;
-            
-            emailjs.sendForm('service_83qpoz9', 'template_2i5d52p', this)
-                .then(function() {
-                    // Show success state
-                    buttonText.textContent = 'Message Sent!';
-                    submitButton.style.background = 'linear-gradient(to right, #10B981, #059669)';
+        async function initializeEmailJS() {
+            try {
+                const response = await fetch('/api/config');
+                if (!response.ok) {
+                    throw new Error('Failed to load configuration');
+                }
+                
+                const config = await response.json();
+                
+                if (!config.emailjs?.publicKey) {
+                    throw new Error('Invalid configuration received');
+                }
+                
+                emailjs.init(config.emailjs.publicKey);
+                
+                document.getElementById('contact-form').addEventListener('submit', async function(e) {
+                    e.preventDefault();
                     
-                    // Reset form
-                    document.getElementById('contact-form').reset();
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const buttonText = submitButton.querySelector('.button-text');
+                    const originalText = buttonText.textContent;
                     
-                    // Reset button after 3 seconds
-                    setTimeout(() => {
-                        buttonText.textContent = originalText;
-                        submitButton.style.background = '';
-                        submitButton.disabled = false;
-                    }, 3000);
-                }, function(error) {
-                    // Show error state
-                    buttonText.textContent = 'Error! Try Again';
-                    submitButton.style.background = 'linear-gradient(to right, #EF4444, #DC2626)';
+                    // Show loading state
+                    buttonText.textContent = 'Sending...';
+                    submitButton.disabled = true;
                     
-                    // Reset button after 3 seconds
-                    setTimeout(() => {
-                        buttonText.textContent = originalText;
-                        submitButton.style.background = '';
-                        submitButton.disabled = false;
-                    }, 3000);
+                    try {
+                        await emailjs.sendForm(
+                            config.emailjs.serviceId,
+                            config.emailjs.templateId,
+                            this
+                        );
+                        // Show success state
+                        showNotification('Message sent successfully!', 'success');
+                        buttonText.textContent = 'Message Sent!';
+                        submitButton.style.background = 'linear-gradient(to right, #10B981, #059669)';
+                        
+                        // Reset form
+                        this.reset();
+                        
+                        // Reset button after 3 seconds
+                        setTimeout(() => {
+                            buttonText.textContent = originalText;
+                            submitButton.style.background = '';
+                            submitButton.disabled = false;
+                        }, 3000);
+                    } catch (error) {
+                        // Show error state
+                        showNotification(error.message || 'Failed to send message. Please try again.', 'error');
+                        buttonText.textContent = 'Error! Try Again';
+                        submitButton.style.background = 'linear-gradient(to right, #EF4444, #DC2626)';
+                        
+                        // Reset button after 3 seconds
+                        setTimeout(() => {
+                            buttonText.textContent = originalText;
+                            submitButton.style.background = '';
+                            submitButton.disabled = false;
+                        }, 3000);
+                        
+                        console.error('EmailJS Error:', error);
+                    }
                 });
-        });
+            } catch (error) {
+                console.error('Failed to initialize EmailJS:', error);
+                showNotification('Failed to initialize contact form. Please try again later.', 'error');
+            }
+        }
+
+        // Call the initialization function when the page loads
+        document.addEventListener('DOMContentLoaded', initializeEmailJS);
     </script>
 </body>
 </html> 

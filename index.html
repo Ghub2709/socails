@@ -754,6 +754,24 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
+        // Load environment variables securely from API
+        const loadEnvVariables = async () => {
+            try {
+                const response = await fetch('/api/config');
+                const config = await response.json();
+                return config;
+            } catch (error) {
+                console.error('Error loading configuration:', error);
+                return {};
+            }
+        };
+
+        // Initialize EmailJS with environment variables
+        (async function() {
+            const config = await loadEnvVariables();
+            emailjs.init(config.EMAILJS_PUBLIC_KEY);
+        })();
+
         // Intersection Observer for section animations
         const observerOptions = {
             root: null,
@@ -773,11 +791,6 @@
         document.querySelectorAll('section').forEach(section => {
             observer.observe(section);
         });
-
-        // Initialize EmailJS
-        (function() {
-            emailjs.init("8FEFCWK74pLWFzXeg");
-        })();
 
         // Show notification function
         function showNotification(message, type = 'success') {
@@ -845,8 +858,14 @@
                 // Validate form data
                 validateForm(formData);
 
-                // Send email using EmailJS
-                await emailjs.send('service_83qpoz9', 'template_2i5d52p', formData);
+                const env = await loadEnvVariables();
+                
+                // Send email using EmailJS with environment variables
+                await emailjs.send(
+                    env.EMAILJS_SERVICE_ID,
+                    env.EMAILJS_TEMPLATE_ID,
+                    formData
+                );
                 
                 // Show success message
                 showNotification('🎉 Welcome aboard! Redirecting you to next steps...', 'success');
