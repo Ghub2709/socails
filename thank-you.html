@@ -185,6 +185,7 @@
     
     <!-- EmailJS Integration -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="config.js"></script>
     <script>
         // Show notification function
         function showNotification(message, type = 'success') {
@@ -203,20 +204,14 @@
             }, 5000);
         }
 
-        async function initializeEmailJS() {
+        // Initialize EmailJS
+        function initializeEmailJS() {
             try {
-                const response = await fetch('/api/config');
-                if (!response.ok) {
-                    throw new Error('Failed to load configuration');
+                if (!window.EMAILJS_CONFIG) {
+                    throw new Error('EmailJS configuration not found');
                 }
                 
-                const config = await response.json();
-                
-                if (!config.emailjs?.publicKey) {
-                    throw new Error('Invalid configuration received');
-                }
-                
-                emailjs.init(config.emailjs.publicKey);
+                emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY);
                 
                 document.getElementById('contact-form').addEventListener('submit', async function(e) {
                     e.preventDefault();
@@ -231,8 +226,8 @@
                     
                     try {
                         await emailjs.sendForm(
-                            config.emailjs.serviceId,
-                            config.emailjs.templateId,
+                            window.EMAILJS_CONFIG.SERVICE_ID,
+                            window.EMAILJS_CONFIG.TEMPLATE_ID,
                             this
                         );
                         // Show success state

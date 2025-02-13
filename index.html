@@ -753,44 +753,16 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="config.js"></script>
     <script>
-        // Load environment variables securely from API
-        const loadEnvVariables = async () => {
-            try {
-                const response = await fetch('/api/config');
-                const config = await response.json();
-                return config;
-            } catch (error) {
-                console.error('Error loading configuration:', error);
-                return {};
+        // Initialize EmailJS with config
+        (function() {
+            if (!window.EMAILJS_CONFIG) {
+                console.error('EmailJS configuration not found');
+                return;
             }
-        };
-
-        // Initialize EmailJS with environment variables
-        (async function() {
-            const config = await loadEnvVariables();
-            emailjs.init(config.EMAILJS_PUBLIC_KEY);
+            emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY);
         })();
-
-        // Intersection Observer for section animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all sections
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
 
         // Show notification function
         function showNotification(message, type = 'success') {
@@ -857,13 +829,11 @@
             try {
                 // Validate form data
                 validateForm(formData);
-
-                const env = await loadEnvVariables();
                 
-                // Send email using EmailJS with environment variables
+                // Send email using EmailJS with config
                 await emailjs.send(
-                    env.EMAILJS_SERVICE_ID,
-                    env.EMAILJS_TEMPLATE_ID,
+                    window.EMAILJS_CONFIG.SERVICE_ID,
+                    window.EMAILJS_CONFIG.TEMPLATE_ID,
                     formData
                 );
                 
