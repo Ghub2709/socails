@@ -12,6 +12,13 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
+    <div class="floating-logos">
+        <img src="linkedIn.png" alt="LinkedIn Logo" class="floating-logo">
+        <img src="linkedIn.png" alt="LinkedIn Logo" class="floating-logo">
+        <img src="linkedIn.png" alt="LinkedIn Logo" class="floating-logo">
+        <img src="linkedIn.png" alt="LinkedIn Logo" class="floating-logo">
+        <img src="linkedIn.png" alt="LinkedIn Logo" class="floating-logo">
+    </div>
     <header>
         <nav>
             <div class="logo"><a href="./index.html" style="text-decoration: none; color: inherit;">SOCAILS</a></div>
@@ -36,7 +43,11 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <div class="hero-badge">🚀 Only 12! (of 100) Free Slots Left</div>
+                <a href="#hero-form" class="hero-badge">
+                    <span>Sorry SOCAILS is in High Demand:</span>
+                    <span id="counter">79</span>
+                    <span>Seats Available for FREE</span>
+                </a>
                 <h1>Get 30 Days of LinkedIn Content in 30 Seconds - 100% Free</h1>
                 <p class="subtitle" style="text-align: center;">Transform Your Content, Website, and LinkedIn Profile Into A Month of Ready-to-Post LinkedIn Updates</p>
                 <div class="ai-features">
@@ -69,7 +80,7 @@
                     </div>
                 </div>
                 <form class="lead-form" id="hero-form" action="/submit" method="POST">
-                    <h1>Claim Your 30 Days of Free LinkedIn Content</h1>
+                    <h1>Register Now - Limited Free Seats Left</h1>
                     <p class="subtitle">Join 1,497+ professionals saving 12+ hours weekly</p>
                     
                     <div class="form-features">
@@ -1010,6 +1021,32 @@
                 behavior: 'smooth'
             });
         });
+
+        // Counter Animation
+        function animateCounter() {
+            const counter = document.getElementById('counter');
+            const startValue = 79;
+            const endValue = 6;
+            const duration = 4000; // 4 seconds
+            const stepTime = 50; // Update every 50ms
+            
+            const totalSteps = duration / stepTime;
+            const stepValue = (startValue - endValue) / totalSteps;
+            let currentValue = startValue;
+            
+            const timer = setInterval(() => {
+                currentValue -= stepValue;
+                if (currentValue <= endValue) {
+                    currentValue = endValue;
+                    clearInterval(timer);
+                }
+                counter.textContent = Math.round(currentValue);
+            }, stepTime);
+        }
+
+        // Start the animation when the page loads
+        document.addEventListener('DOMContentLoaded', animateCounter);
     </script>
+    <script src="counter.js"></script>
 </body>
 </html> 
