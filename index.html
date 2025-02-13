@@ -14,7 +14,7 @@
 <body>
     <header>
         <nav>
-            <div class="logo">SOCAILS</div>
+            <div class="logo"><a href="./index.html" style="text-decoration: none; color: inherit;">SOCAILS</a></div>
             <div class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#pricing">Pricing</a>
@@ -760,6 +760,9 @@
             <p class="notification-message"></p>
         </div>
     </div>
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="config.js"></script>
     <script>
@@ -951,6 +954,24 @@
         posts.forEach(post => {
             const clone = post.cloneNode(true);
             postsCarousel.appendChild(clone);
+        });
+
+        // Back to top functionality
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     </script>
 </body>

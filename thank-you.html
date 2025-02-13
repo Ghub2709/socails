@@ -13,7 +13,7 @@
 <body>
     <header>
         <nav>
-            <div class="logo">SOCAILS</div>
+            <div class="logo"><a href="./index.html" style="text-decoration: none; color: inherit;">SOCAILS</a></div>
             <div class="nav-links">
                 <a href="/#features">Features</a>
                 <a href="/#pricing">Pricing</a>
@@ -90,6 +90,21 @@
                                 <h3>Daily Posts</h3>
                                 <p>Expect one post per business day, delivered to your inbox, ready to copy and paste to LinkedIn.</p>
                             </div>
+                            <div class="tip-card">
+                                <div class="tip-icon">🎯</div>
+                                <h3>Define Your Goals</h3>
+                                <p>Set clear objectives for your LinkedIn presence to measure your success.</p>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-icon">📊</div>
+                                <h3>Track Analytics</h3>
+                                <p>Monitor your post performance and engagement metrics to optimize your strategy.</p>
+                            </div>
+                            <div class="tip-card">
+                                <div class="tip-icon">🤝</div>
+                                <h3>Engage With Your Network</h3>
+                                <p>Actively respond to comments and engage with your connections' content to build relationships.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -153,6 +168,9 @@
             </div>
         </div>
     </footer>
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
     <script>
         // Make all sections visible by default
         document.addEventListener('DOMContentLoaded', function() {
@@ -180,6 +198,24 @@
         // Observe all sections
         document.querySelectorAll('section').forEach(section => {
             observer.observe(section);
+        });
+
+        // Back to top functionality
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     </script>
     
