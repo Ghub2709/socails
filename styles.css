@@ -27,6 +27,17 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes flyIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -281,21 +292,18 @@ html {
 }
 
 .hero {
-    padding-top: 120px;
-    min-height: 50vh;
-    width: 100%;
+    padding: 6rem 5%;
     position: relative;
-    z-index: 1;
-    background: var(--background-color);
+    overflow: hidden;
+    background: linear-gradient(180deg, #fff, var(--background-color));
 }
 
 .hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
     position: relative;
     z-index: 2;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 5%;
 }
 
 .hero h1 {
@@ -310,7 +318,8 @@ html {
     background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
     -webkit-background-clip: text;
     color: transparent;
-    animation: slideIn 1s ease-out;
+    animation: flyIn 1s ease-out forwards;
+    opacity: 0;
     font-weight: 800;
 }
 
@@ -2157,16 +2166,30 @@ main {
 
 /* Fix for hero section on thank you page */
 .hero {
-    padding-top: 120px; /* Adjust for fixed header */
-    min-height: 50vh;
-    width: 100%;
+    padding: 6rem 5%;
     position: relative;
-    z-index: 1;
+    overflow: hidden;
+    background: linear-gradient(180deg, #fff, var(--background-color));
 }
 
 .hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
     position: relative;
     z-index: 2;
+}
+
+/* Ensure other hero elements don't have animations */
+.hero-badge,
+.hero .subtitle,
+.ai-features,
+.value-prop,
+.hero-stats,
+.lead-form {
+    opacity: 1;
+    transform: none;
+    animation: none;
 }
 
 /* Contact Form Styles */
@@ -2240,4 +2263,9 @@ main {
         padding: 1.5rem;
         margin: 1rem;
     }
+}
+
+.animate-fly-in {
+    animation: flyIn 1s ease-out forwards;
+    opacity: 0;
 } 

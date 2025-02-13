@@ -37,7 +37,7 @@
         <section class="hero">
             <div class="hero-content">
                 <div class="hero-badge">🚀 Only 12! (of 100) Free Slots Left</div>
-                <h1>Get 30 Days of LinkedIn Content in 30 Seconds - 100% Free</h1>
+                <h1 class="animate-fly-in">Get 30 Days of LinkedIn Content in 30 Seconds - 100% Free</h1>
                 <p class="subtitle" style="text-align: center;">Transform Your Content, Website, and LinkedIn Profile Into A Month of Ready-to-Post LinkedIn Updates</p>
                 <div class="ai-features">
                     <div class="ai-feature">
@@ -821,22 +821,32 @@
 
         // Form validation function
         function validateForm(formData) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
-
-            if (!emailRegex.test(formData.business_email)) {
-                throw new Error('Please enter a valid business email address');
+            // Check for empty or invalid values
+            if (!formData.business_email || !formData.business_email.includes('@')) {
+                throw new Error('Please enter a valid business email');
             }
-
-            if (!urlRegex.test(formData.linkedin_profile)) {
-                throw new Error('Please enter a valid LinkedIn profile URL');
+            if (!formData.business_name || formData.business_name.trim().length === 0) {
+                throw new Error('Please enter your business name');
             }
-
-            if (!urlRegex.test(formData.website)) {
-                throw new Error('Please enter a valid website URL');
+            if (!formData.message || formData.message.trim().length === 0) {
+                throw new Error('Please enter a message');
             }
-
-            return true;
+            
+            // Sanitize the values
+            formData.business_email = formData.business_email.trim().toLowerCase();
+            formData.business_name = formData.business_name.trim();
+            formData.message = formData.message.trim();
+            
+            // Validate lengths
+            if (formData.business_email.length > 100) {
+                throw new Error('Business email is too long');
+            }
+            if (formData.business_name.length > 100) {
+                throw new Error('Business name is too long');
+            }
+            if (formData.message.length > 1000) {
+                throw new Error('Message is too long');
+            }
         }
 
         // Handle form submission
@@ -864,6 +874,13 @@
                 // Validate form data
                 validateForm(formData);
                 
+                // Validate EmailJS config
+                if (window.EMAILJS_CONFIG.PUBLIC_KEY.includes('EMAILJS_PUBLIC_KEY:') ||
+                    window.EMAILJS_CONFIG.SERVICE_ID.includes('EMAILJS_SERVICE_ID:') ||
+                    window.EMAILJS_CONFIG.TEMPLATE_ID.includes('EMAILJS_TEMPLATE_ID:')) {
+                    throw new Error('Invalid EmailJS configuration. Configuration values contain labels.');
+                }
+                
                 // Debug the actual values being sent (without exposing sensitive data)
                 console.log('Sending email with config:', {
                     serviceId: window.EMAILJS_CONFIG.SERVICE_ID,
@@ -871,7 +888,10 @@
                     formData: { ...formData, business_email: '***@***.***' },
                     // Add lengths to verify correct values
                     serviceIdLength: window.EMAILJS_CONFIG.SERVICE_ID.length,
-                    templateIdLength: window.EMAILJS_CONFIG.TEMPLATE_ID.length
+                    templateIdLength: window.EMAILJS_CONFIG.TEMPLATE_ID.length,
+                    // Add first characters to verify no labels
+                    serviceIdStart: window.EMAILJS_CONFIG.SERVICE_ID.charAt(0),
+                    templateIdStart: window.EMAILJS_CONFIG.TEMPLATE_ID.charAt(0)
                 });
                 
                 // Send email using EmailJS with config
