@@ -30,10 +30,10 @@ jobs:
           # Read the keys from the secret
           KEYS="${{ secrets.SOCAILS_LP_KEYS }}"
           
-          # Extract individual values (assuming format "KEY: value")
-          PUBLIC_KEY=$(echo "$KEYS" | grep "EMAILJS_PUBLIC_KEY:" | cut -d'"' -f2)
-          SERVICE_ID=$(echo "$KEYS" | grep "EMAILJS_SERVICE_ID:" | cut -d'"' -f2)
-          TEMPLATE_ID=$(echo "$KEYS" | grep "EMAILJS_TEMPLATE_ID:" | cut -d'"' -f2)
+          # Extract individual values and clean them
+          PUBLIC_KEY=$(echo "$KEYS" | grep "EMAILJS_PUBLIC_KEY:" | sed 's/.*: "\(.*\)"/\1/')
+          SERVICE_ID=$(echo "$KEYS" | grep "EMAILJS_SERVICE_ID:" | sed 's/.*: "\(.*\)"/\1/')
+          TEMPLATE_ID=$(echo "$KEYS" | grep "EMAILJS_TEMPLATE_ID:" | sed 's/.*: "\(.*\)"/\1/')
           
           # Debug output (without exposing actual values)
           echo "Extracted keys (showing length):"
@@ -41,7 +41,13 @@ jobs:
           echo "SERVICE_ID length: ${#SERVICE_ID}"
           echo "TEMPLATE_ID length: ${#TEMPLATE_ID}"
           
-          # Create config.js
+          # Debug first character of each value (to verify no extra spaces or characters)
+          echo "First characters:"
+          echo "PUBLIC_KEY starts with: ${PUBLIC_KEY:0:1}"
+          echo "SERVICE_ID starts with: ${SERVICE_ID:0:1}"
+          echo "TEMPLATE_ID starts with: ${TEMPLATE_ID:0:1}"
+          
+          # Create config.js with cleaned values
           cat > config.js << EOL
           window.EMAILJS_CONFIG = {
             PUBLIC_KEY: "${PUBLIC_KEY}",
