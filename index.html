@@ -37,7 +37,7 @@
         <section class="hero">
             <div class="hero-content">
                 <div class="hero-badge">🚀 Only 12! (of 100) Free Slots Left</div>
-                <h1 class="animate-fly-in">Get 30 Days of LinkedIn Content in 30 Seconds - 100% Free</h1>
+                <h1>Get 30 Days of LinkedIn Content in 30 Seconds - 100% Free</h1>
                 <p class="subtitle" style="text-align: center;">Transform Your Content, Website, and LinkedIn Profile Into A Month of Ready-to-Post LinkedIn Updates</p>
                 <div class="ai-features">
                     <div class="ai-feature">
@@ -119,10 +119,13 @@
                         </div>
                     </div>
                 </form>
+                <button id="reveal-content" class="reveal-button">
+                    <i class="fas fa-info-circle"></i> I Want More Info Before Signing Up
+                </button>
             </div>
         </section>
 
-        <section class="showcase-posts">
+        <section class="showcase-posts hidden-section">
             <h2>AI-Generated Excellence in Action</h2>
             <p class="section-subtitle">These posts were created by SOCAILS AI for our own LinkedIn presence - imagine what we can do for you!</p>
             
@@ -204,7 +207,7 @@
             </div>
         </section>
 
-        <section class="growth-journey">
+        <section class="growth-journey hidden-section">
             <h2>Your LinkedIn Growth Journey</h2>
             <p class="section-subtitle">Watch Your Influence Transform Month by Month</p>
             
@@ -341,7 +344,7 @@
             </div>
         </section>
 
-        <section class="features" id="features">
+        <section class="features hidden-section" id="features">
             <h2>Transform Your LinkedIn Game</h2>
             <div class="features-grid">
                 <div class="feature-card">
@@ -381,7 +384,7 @@
             </div>
         </section>
 
-        <section class="benefits">
+        <section class="benefits hidden-section">
             <h2>Experience the Power of AI-Driven Content</h2>
             <div class="benefits-container">
                 <div class="benefit-card">
@@ -480,7 +483,7 @@
             </div>
         </section>
 
-        <section class="ideal-users">
+        <section class="ideal-users hidden-section">
             <h2>Perfect For Ambitious Professionals</h2>
             <div class="users-grid">
                 <div class="user-type">
@@ -520,7 +523,7 @@
             </div>
         </section>
 
-        <section class="testimonials" id="testimonials">
+        <section class="testimonials hidden-section" id="testimonials">
             <h2>Success Stories That Inspire</h2>
             <div class="testimonial-grid">
                 <div class="testimonial-card">
@@ -596,7 +599,7 @@
             </div>
         </section>
 
-        <section class="how-it-works">
+        <section class="how-it-works hidden-section">
             <h2>Your Journey to LinkedIn Excellence</h2>
             <div class="timeline">
                 <div class="timeline-item">
@@ -636,7 +639,7 @@
             </div>
         </section>
 
-        <section class="pricing" id="pricing">
+        <section class="pricing hidden-section" id="pricing">
             <h2>Simple, Transparent Pricing</h2>
             <div class="pricing-grid">
                 <div class="pricing-card">
@@ -693,7 +696,7 @@
             </div>
         </section>
 
-        <section class="faq" id="faq">
+        <section class="faq hidden-section" id="faq">
             <h2>Frequently Asked Questions</h2>
             <div class="faq-grid">
                 <details class="faq-item">
@@ -790,6 +793,28 @@
                 console.error('EmailJS initialization error:', error);
             }
         })();
+
+        // Handle reveal button click
+        document.getElementById('reveal-content').addEventListener('click', function() {
+            // Hide the reveal button
+            this.style.display = 'none';
+            
+            // Show all hidden sections with a smooth animation
+            document.querySelectorAll('.hidden-section').forEach((section, index) => {
+                setTimeout(() => {
+                    section.style.display = 'block';
+                    section.style.opacity = '0';
+                    section.style.transform = 'translateY(20px)';
+                    
+                    // Trigger animation
+                    setTimeout(() => {
+                        section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        section.style.opacity = '1';
+                        section.style.transform = 'translateY(0)';
+                    }, 50);
+                }, index * 200); // Stagger the animations
+            });
+        });
 
         // Auto-set reply_to field when business email changes
         document.getElementById('business_email').addEventListener('input', function(e) {
