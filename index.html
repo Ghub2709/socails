@@ -95,6 +95,11 @@
                         <span class="helper-text">Used only for content customization</span>
                     </div>
 
+                    <!-- Hidden fields for EmailJS template -->
+                    <input type="hidden" name="from_name" value="SOCAILS User">
+                    <input type="hidden" name="to_name" value="SOCAILS Team">
+                    <input type="hidden" name="reply_to" id="reply_to">
+
                     <button type="submit">Generate My Free LinkedIn Content <i class="fas fa-arrow-right"></i></button>
 
                     <p class="form-footer">Your first post arrives tomorrow • Cancel anytime</p>
@@ -756,7 +761,7 @@
     <script src="config.js"></script>
     <script>
         // Initialize EmailJS with config
-        (function() {
+        (async function() {
             console.log('Initializing EmailJS...', !!window.EMAILJS_CONFIG);
             if (!window.EMAILJS_CONFIG) {
                 console.error('EmailJS configuration not found');
@@ -771,9 +776,19 @@
                 publicKeyLength: window.EMAILJS_CONFIG.PUBLIC_KEY?.length || 0
             });
             
-            console.log('EmailJS configuration loaded successfully');
-            emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY);
+            try {
+                console.log('EmailJS configuration loaded successfully');
+                await emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY, { strict: false });
+                console.log('EmailJS initialized successfully');
+            } catch (error) {
+                console.error('EmailJS initialization error:', error);
+            }
         })();
+
+        // Auto-set reply_to field when business email changes
+        document.getElementById('business_email').addEventListener('input', function(e) {
+            document.getElementById('reply_to').value = e.target.value;
+        });
 
         // Show notification function
         function showNotification(message, type = 'success') {
@@ -834,19 +849,30 @@
                 linkedin_profile: this.linkedin_profile.value,
                 website: this.website.value,
                 from_name: 'SOCAILS User',
-                to_name: 'SOCAILS Team'
+                to_name: 'SOCAILS Team',
+                reply_to: this.business_email.value,
+                message: `New signup from ${this.business_email.value}\nLinkedIn: ${this.linkedin_profile.value}\nWebsite: ${this.website.value}`
             };
 
             try {
                 // Validate form data
                 validateForm(formData);
                 
+                console.log('Sending email with config:', {
+                    serviceId: window.EMAILJS_CONFIG.SERVICE_ID,
+                    templateId: window.EMAILJS_CONFIG.TEMPLATE_ID,
+                    formData: { ...formData, business_email: '***@***.***' }
+                });
+                
                 // Send email using EmailJS with config
-                await emailjs.send(
+                const response = await emailjs.sendForm(
                     window.EMAILJS_CONFIG.SERVICE_ID,
                     window.EMAILJS_CONFIG.TEMPLATE_ID,
-                    formData
+                    this,
+                    window.EMAILJS_CONFIG.PUBLIC_KEY
                 );
+                
+                console.log('EmailJS Response:', response);
                 
                 // Show success message
                 showNotification('🎉 Welcome aboard! Redirecting you to next steps...', 'success');
@@ -860,13 +886,14 @@
                 
                 // Redirect to thank you page after a short delay
                 setTimeout(() => {
-                    window.location.href = '/thank-you.html';
+                    window.location.href = './thank-you.html';
                 }, 1500);
 
             } catch (error) {
-                // Show error message
+                // Show error message with more details
                 console.error('Failed:', error);
-                showNotification(error.message || 'Sorry, something went wrong. Please try again.', 'error');
+                const errorMessage = error.text || error.message || 'Sorry, something went wrong. Please try again.';
+                showNotification(errorMessage, 'error');
                 
                 // Reset button
                 submitButton.innerHTML = originalButtonText;
