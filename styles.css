@@ -2384,8 +2384,8 @@ main {
     animation: float 30s linear infinite;
     opacity: 0.1;
     background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
-    mask-image: url('linkedIn.png');
-    -webkit-mask-image: url('linkedIn.png');
+    mask-image: url('linkedin.png');
+    -webkit-mask-image: url('linkedin.png');
     mask-size: contain;
     -webkit-mask-size: contain;
     mask-repeat: no-repeat;
@@ -2420,6 +2420,12 @@ main {
     top: 25%;
     left: 40%;
     animation-delay: -24s;
+}
+
+.floating-logo:nth-child(6) {
+    top: 50%;
+    left: 50%;
+    animation-delay: -30s;
 }
 
 @keyframes float {
