@@ -204,7 +204,8 @@
         const backToTopButton = document.querySelector('.back-to-top');
         
         window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
+            const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+            if (scrollPosition > 300) {
                 backToTopButton.classList.add('visible');
             } else {
                 backToTopButton.classList.remove('visible');

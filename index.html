@@ -16,10 +16,10 @@
         <nav>
             <div class="logo"><a href="./index.html" style="text-decoration: none; color: inherit;">SOCAILS</a></div>
             <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#testimonials">Success Stories</a>
-                <a href="#faq">FAQ</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <a href="#testimonials" class="nav-link">Success Stories</a>
+                <a href="#faq" class="nav-link">FAQ</a>
             </div>
             <div class="contact-links">
                 <a href="mailto:hello@socails.com" class="contact-link">
@@ -797,10 +797,11 @@
             }
         })();
 
-        // Handle reveal button click
-        document.getElementById('reveal-content').addEventListener('click', function() {
+        // Handle reveal button click and navigation
+        function revealContent() {
+            const revealButton = document.getElementById('reveal-content');
             // Hide the reveal button
-            this.style.display = 'none';
+            revealButton.style.display = 'none';
             
             // Show all hidden sections with a smooth animation
             document.querySelectorAll('.hidden-section').forEach((section, index) => {
@@ -816,6 +817,41 @@
                         section.style.transform = 'translateY(0)';
                     }, 50);
                 }, index * 200); // Stagger the animations
+            });
+        }
+
+        // Handle reveal button click
+        document.getElementById('reveal-content').addEventListener('click', revealContent);
+
+        // Handle navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', async (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                // First reveal all content if needed
+                const hiddenSections = document.querySelectorAll('.hidden-section');
+                if (hiddenSections.length > 0) {
+                    // Hide reveal button if it exists
+                    const revealButton = document.getElementById('reveal-content');
+                    if (revealButton) {
+                        revealButton.style.display = 'none';
+                    }
+
+                    // Show all sections immediately
+                    hiddenSections.forEach(section => {
+                        section.style.display = 'block';
+                        section.style.opacity = '1';
+                        section.style.transform = 'translateY(0)';
+                        section.style.transition = 'none';
+                    });
+                }
+
+                // Scroll to target section immediately
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
 
@@ -960,7 +996,8 @@
         const backToTopButton = document.querySelector('.back-to-top');
         
         window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
+            const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+            if (scrollPosition > 300) {
                 backToTopButton.classList.add('visible');
             } else {
                 backToTopButton.classList.remove('visible');
