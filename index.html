@@ -850,27 +850,27 @@
             if (!formData.business_email || !formData.business_email.includes('@')) {
                 throw new Error('Please enter a valid business email');
             }
-            if (!formData.business_name || formData.business_name.trim().length === 0) {
-                throw new Error('Please enter your business name');
+            if (!formData.linkedin_profile || !formData.linkedin_profile.includes('linkedin.com')) {
+                throw new Error('Please enter a valid LinkedIn profile URL');
             }
-            if (!formData.message || formData.message.trim().length === 0) {
-                throw new Error('Please enter a message');
+            if (!formData.website || formData.website.trim().length === 0) {
+                throw new Error('Please enter your company website');
             }
             
             // Sanitize the values
             formData.business_email = formData.business_email.trim().toLowerCase();
-            formData.business_name = formData.business_name.trim();
-            formData.message = formData.message.trim();
+            formData.linkedin_profile = formData.linkedin_profile.trim();
+            formData.website = formData.website.trim();
             
             // Validate lengths
             if (formData.business_email.length > 100) {
                 throw new Error('Business email is too long');
             }
-            if (formData.business_name.length > 100) {
-                throw new Error('Business name is too long');
+            if (formData.linkedin_profile.length > 100) {
+                throw new Error('LinkedIn profile URL is too long');
             }
-            if (formData.message.length > 1000) {
-                throw new Error('Message is too long');
+            if (formData.website.length > 100) {
+                throw new Error('Website URL is too long');
             }
         }
 
@@ -900,24 +900,12 @@
                 validateForm(formData);
                 
                 // Validate EmailJS config
-                if (window.EMAILJS_CONFIG.PUBLIC_KEY.includes('EMAILJS_PUBLIC_KEY:') ||
-                    window.EMAILJS_CONFIG.SERVICE_ID.includes('EMAILJS_SERVICE_ID:') ||
-                    window.EMAILJS_CONFIG.TEMPLATE_ID.includes('EMAILJS_TEMPLATE_ID:')) {
-                    throw new Error('Invalid EmailJS configuration. Configuration values contain labels.');
+                if (!window.EMAILJS_CONFIG || 
+                    !window.EMAILJS_CONFIG.PUBLIC_KEY ||
+                    !window.EMAILJS_CONFIG.SERVICE_ID ||
+                    !window.EMAILJS_CONFIG.TEMPLATE_ID) {
+                    throw new Error('EmailJS configuration is missing or incomplete');
                 }
-                
-                // Debug the actual values being sent (without exposing sensitive data)
-                console.log('Sending email with config:', {
-                    serviceId: window.EMAILJS_CONFIG.SERVICE_ID,
-                    templateId: window.EMAILJS_CONFIG.TEMPLATE_ID,
-                    formData: { ...formData, business_email: '***@***.***' },
-                    // Add lengths to verify correct values
-                    serviceIdLength: window.EMAILJS_CONFIG.SERVICE_ID.length,
-                    templateIdLength: window.EMAILJS_CONFIG.TEMPLATE_ID.length,
-                    // Add first characters to verify no labels
-                    serviceIdStart: window.EMAILJS_CONFIG.SERVICE_ID.charAt(0),
-                    templateIdStart: window.EMAILJS_CONFIG.TEMPLATE_ID.charAt(0)
-                });
                 
                 // Send email using EmailJS with config
                 const response = await emailjs.send(
@@ -944,7 +932,7 @@
                 }, 1500);
 
             } catch (error) {
-                // Show error message with more details
+                // Show error message
                 console.error('Failed:', error);
                 const errorMessage = error.text || error.message || 'Sorry, something went wrong. Please try again.';
                 showNotification(errorMessage, 'error');
