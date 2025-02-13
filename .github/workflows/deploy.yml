@@ -30,7 +30,7 @@ jobs:
           # Read the keys from the secret
           KEYS="${{ secrets.SOCAILS_LP_KEYS }}"
           
-          # Extract individual values using grep
+          # Extract individual values (assuming format "KEY: value")
           PUBLIC_KEY=$(echo "$KEYS" | grep "EMAILJS_PUBLIC_KEY:" | cut -d'"' -f2)
           SERVICE_ID=$(echo "$KEYS" | grep "EMAILJS_SERVICE_ID:" | cut -d'"' -f2)
           TEMPLATE_ID=$(echo "$KEYS" | grep "EMAILJS_TEMPLATE_ID:" | cut -d'"' -f2)
@@ -41,18 +41,12 @@ jobs:
           echo "SERVICE_ID length: ${#SERVICE_ID}"
           echo "TEMPLATE_ID length: ${#TEMPLATE_ID}"
           
-          # Set outputs
-          echo "public_key=$PUBLIC_KEY" >> $GITHUB_OUTPUT
-          echo "service_id=$SERVICE_ID" >> $GITHUB_OUTPUT
-          echo "template_id=$TEMPLATE_ID" >> $GITHUB_OUTPUT
-        
-      - name: Replace Environment Variables
-        run: |
+          # Create config.js
           cat > config.js << EOL
           window.EMAILJS_CONFIG = {
-            PUBLIC_KEY: "${{ steps.extract_keys.outputs.public_key }}",
-            SERVICE_ID: "${{ steps.extract_keys.outputs.service_id }}",
-            TEMPLATE_ID: "${{ steps.extract_keys.outputs.template_id }}"
+            PUBLIC_KEY: "${PUBLIC_KEY}",
+            SERVICE_ID: "${SERVICE_ID}",
+            TEMPLATE_ID: "${TEMPLATE_ID}"
           };
           EOL
           

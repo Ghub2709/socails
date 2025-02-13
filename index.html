@@ -778,7 +778,7 @@
             
             try {
                 console.log('EmailJS configuration loaded successfully');
-                await emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY, { strict: false });
+                await emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY);
                 console.log('EmailJS initialized successfully');
             } catch (error) {
                 console.error('EmailJS initialization error:', error);
@@ -865,11 +865,10 @@
                 });
                 
                 // Send email using EmailJS with config
-                const response = await emailjs.sendForm(
+                const response = await emailjs.send(
                     window.EMAILJS_CONFIG.SERVICE_ID,
                     window.EMAILJS_CONFIG.TEMPLATE_ID,
-                    this,
-                    window.EMAILJS_CONFIG.PUBLIC_KEY
+                    formData
                 );
                 
                 console.log('EmailJS Response:', response);
