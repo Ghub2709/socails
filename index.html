@@ -762,6 +762,15 @@
                 console.error('EmailJS configuration not found');
                 return;
             }
+            
+            // Debug configuration (without exposing secrets)
+            console.log('Configuration keys present:', {
+                hasPublicKey: !!window.EMAILJS_CONFIG.PUBLIC_KEY,
+                hasServiceId: !!window.EMAILJS_CONFIG.SERVICE_ID,
+                hasTemplateId: !!window.EMAILJS_CONFIG.TEMPLATE_ID,
+                publicKeyLength: window.EMAILJS_CONFIG.PUBLIC_KEY?.length || 0
+            });
+            
             console.log('EmailJS configuration loaded successfully');
             emailjs.init(window.EMAILJS_CONFIG.PUBLIC_KEY);
         })();

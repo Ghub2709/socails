@@ -26,14 +26,25 @@ jobs:
         
       - name: Replace Environment Variables
         run: |
-          # Create config.js with environment variables
-          echo "window.EMAILJS_CONFIG = {
-            PUBLIC_KEY: '${{ secrets.EMAILJS_PUBLIC_KEY }}',
-            SERVICE_ID: '${{ secrets.EMAILJS_SERVICE_ID }}',
-            TEMPLATE_ID: '${{ secrets.EMAILJS_TEMPLATE_ID }}'
-          };" > config.js
+          cat > config.js << EOL
+          window.EMAILJS_CONFIG = {
+            PUBLIC_KEY: "${EMAILJS_PUBLIC_KEY}",
+            SERVICE_ID: "${EMAILJS_SERVICE_ID}",
+            TEMPLATE_ID: "${EMAILJS_TEMPLATE_ID}"
+          };
+          EOL
+        env:
+          EMAILJS_PUBLIC_KEY: ${{ secrets.EMAILJS_PUBLIC_KEY }}
+          EMAILJS_SERVICE_ID: ${{ secrets.EMAILJS_SERVICE_ID }}
+          EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
           
-          # Update HTML files to handle GitHub Pages base path
+      - name: Debug Config
+        run: |
+          echo "Checking config.js format (without exposing secrets):"
+          cat config.js | sed 's/\(PUBLIC_KEY\|SERVICE_ID\|TEMPLATE_ID\): "[^"]*"/\1: "[HIDDEN]"/g'
+          
+      - name: Update HTML paths
+        run: |
           find . -type f -name "*.html" -exec sed -i 's|href="/|href="./|g' {} +
           find . -type f -name "*.html" -exec sed -i 's|src="/|src="./|g' {} +
           
