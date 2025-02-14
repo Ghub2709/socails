@@ -949,9 +949,9 @@ footer {
 .form-footer {
     text-align: center;
     color: #6B7280;
-    font-size: 16px;
-    margin-top: 24px;
-    margin-bottom: 40px;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 24px;
 }
 
 .trust-badges {
@@ -2082,7 +2082,7 @@ main {
 .cta-subtitle {
     text-align: center;
     color: #6B7280;
-    margin-top: 0.5rem;
+    margin-top: -0.2rem;
     font-size: 0.875rem;
 }
 
@@ -2626,5 +2626,11 @@ section {
 
     .trust-badges {
         padding: 1.5rem 1rem 0.5rem;
+    }
+
+    .floating-logo:nth-child(3),
+    .floating-logo:nth-child(4),
+    .floating-logo:nth-child(5) {
+        display: none;
     }
 } 
