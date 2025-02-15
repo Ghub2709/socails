@@ -10,6 +10,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+        .faq-item {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+        .faq-item summary {
+            font-weight: 600;
+            cursor: pointer;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .faq-item p {
+            padding: 1rem;
+            line-height: 1.6;
+        }
+        .faq-item ul {
+            list-style-type: none;
+            padding-left: 1rem;
+            margin: 1rem 0;
+        }
+        .faq-item ul li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .faq-item ul li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #007bff;
+        }
+    </style>
 </head>
 <body>
     <div class="floating-logos">
@@ -21,13 +54,17 @@
     </div>
     <header>
         <nav>
-            <div class="logo"><a href="./index.html" style="text-decoration: none; color: inherit;">SOCAILS</a></div>
+            <div class="logo">
+                <a href="./index.html" style="text-decoration: none; color: inherit;">SOCAILS</a>
+            </div>
+            
             <div class="nav-links">
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#pricing" class="nav-link">Pricing</a>
                 <a href="#testimonials" class="nav-link">Success Stories</a>
                 <a href="#faq" class="nav-link">FAQ</a>
             </div>
+            
             <div class="contact-links">
                 <a href="mailto:hello@socails.com" class="contact-link">
                     <i class="far fa-envelope"></i> hello@socails.com
@@ -36,7 +73,13 @@
                     <i class="fab fa-linkedin"></i> Follow us
                 </a>
             </div>
+            
             <a href="#hero-form" class="cta-button animate-pulse">Start Free Trial</a>
+            
+            <!-- Add mobile menu button -->
+            <button class="mobile-menu-button" aria-label="Menu" style="display: none;">
+                <i class="fas fa-bars"></i>
+            </button>
         </nav>
     </header>
 
@@ -44,7 +87,7 @@
         <section class="hero">
             <div class="hero-content">
                 <a href="#hero-form" class="hero-badge">
-                    <span>✅ FOR COACHES, ✅ CONSULTANTS & ✅ EXPERTS: We have</span>
+                    <span>Exclusively for COACHES ✅ CONSULTANTS ✅ EXPERTS ✅ We have only</span>
                     <span id="counter">79</span>
                     <span>FREE Spots Left  ⏰</span>
                 </a>
@@ -732,159 +775,114 @@
             </div>
         </section>
 
-        <section class="ai-assistant-faq hidden-section">
-            <h2>Questions About Your Personal LinkedIn AI Assistant</h2>
-            <div class="ai-faq-grid">
-                <div class="ai-faq-item">
-                    <div class="ai-faq-question">
-                        <span class="ai-icon">🧠</span>
-                        <h3>How does my AI assistant learn my style?</h3>
-                    </div>
-                    <div class="ai-faq-answer">
-                        <p>Your AI assistant learns and improves daily through our email dialogue. Don't like something about a post? Simply reply to the email with your feedback. Tomorrow's post will incorporate your preferences. It's like having a personal content partner that gets better every day.</p>
-                    </div>
-                </div>
-
-                <div class="ai-faq-item">
-                    <div class="ai-faq-question">
-                        <span class="ai-icon">🎯</span>
-                        <h3>How do I guide my AI to create better content?</h3>
-                    </div>
-                    <div class="ai-faq-answer">
-                        <p>Just reply to any post email with your thoughts:</p>
-                        <ul>
-                            <li>"Make it more strategic"</li>
-                            <li>"Less corporate tone please"</li>
-                            <li>"Love this approach, more like this"</li>
-                        </ul>
-                        <p>Your AI remembers your preferences and refines future posts accordingly. The more you interact, the better it gets at matching your voice.</p>
-                    </div>
-                </div>
-
-                <div class="ai-faq-item">
-                    <div class="ai-faq-question">
-                        <span class="ai-icon">🔄</span>
-                        <h3>What if I want to adjust the content strategy?</h3>
-                    </div>
-                    <div class="ai-faq-answer">
-                        <p>Simply email your AI: "Let's focus more on leadership topics" or "I want to share more client success stories." Your next posts will reflect this new direction. It's that simple.</p>
-                    </div>
-                </div>
-
-                <div class="ai-faq-item">
-                    <div class="ai-faq-question">
-                        <span class="ai-icon">⚡</span>
-                        <h3>How quickly does the AI adapt to my feedback?</h3>
-                    </div>
-                    <div class="ai-faq-answer">
-                        <p>Immediately! Each email response you send shapes the very next post. By the end of your free trial, your AI will have learned:</p>
-                        <ul>
-                            <li>Your exact tone of voice</li>
-                            <li>Your preferred topics</li>
-                            <li>Your content style</li>
-                            <li>Your audience's interests</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="ai-faq-item">
-                    <div class="ai-faq-question">
-                        <span class="ai-icon">🎨</span>
-                        <h3>Can I have different content themes?</h3>
-                    </div>
-                    <div class="ai-faq-answer">
-                        <p>Of course! Tell your AI assistant what you want:</p>
-                        <p>"Next week, let's focus on:</p>
-                        <ul>
-                            <li>Client transformation stories</li>
-                            <li>Industry insights</li>
-                            <li>Methodology explanations"</li>
-                        </ul>
-                        <p>Your AI will plan and adjust accordingly.</p>
-                    </div>
-                </div>
-
-                <div class="ai-faq-item">
-                    <div class="ai-faq-question">
-                        <span class="ai-icon">💫</span>
-                        <h3>What makes this different from other AI tools?</h3>
-                    </div>
-                    <div class="ai-faq-answer">
-                        <p>Direct relationship with your AI via email. No platforms to learn, no dashboards to manage. Just natural conversation that improves your content daily. It's like having a dedicated content assistant who knows your business intimately.</p>
-                    </div>
-                </div>
-
-                <div class="ai-faq-item">
-                    <div class="ai-faq-question">
-                        <span class="ai-icon">📈</span>
-                        <h3>How do I know it's working?</h3>
-                    </div>
-                    <div class="ai-faq-answer">
-                        <p>You'll see both the content quality and engagement improve as your AI learns. During your free trial, you'll experience:</p>
-                        <ul>
-                            <li>Increasingly personalized content</li>
-                            <li>Better audience response</li>
-                            <li>More natural tone matching</li>
-                            <li>Higher engagement rates</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="ai-faq-item">
-                    <div class="ai-faq-question">
-                        <span class="ai-icon">🎁</span>
-                        <h3>What happens after the free trial?</h3>
-                    </div>
-                    <div class="ai-faq-answer">
-                        <p>By day 30, your AI will be perfectly tuned to your voice and preferences. Most coaches and consultants find the content so aligned with their style that continuing at $30/month becomes an easy decision. But it's totally up to you - no pressure, no obligations.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="section-cta">
-                <a href="#hero-form" class="cta-button animate-pulse">Start Your AI Partnership Today</a>
-                <p class="cta-subtitle">30 Days to Train Your Perfect Content Assistant - No Credit Card Needed</p>
-            </div>
-        </section>
-
         <section class="faq hidden-section" id="faq">
             <h2>Common Questions from Coaches & Consultants</h2>
             <div class="faq-grid">
                 <details class="faq-item">
                     <summary>How exactly does the daily email delivery work?</summary>
-                    <p>Every morning, you'll receive an email with your ready-to-post LinkedIn update. Simply copy, paste, and post. No logging into complex tools, no scheduling needed. Perfect for busy consultants and coaches who want to maintain presence without the hassle.</p>
+                    <p>Every morning, you'll receive an email with your ready-to-post LinkedIn update. Simply copy, paste, and post.<br><br>
+                    No logging into complex tools, no scheduling needed. Perfect for busy consultants and coaches who want to maintain presence without the hassle.</p>
                 </details>
                 <details class="faq-item">
                     <summary>Will the content reflect my expertise and methodology?</summary>
-                    <p>Yes! Absolutely! We analyze your LinkedIn profile, website, and specialty area to create content that showcases your unique expertise and methodology. Whether you're a business coach, life coach, or specialized consultant, the content will reflect your specific approach and professional voice.</p>
+                    <p>Yes! Absolutely!<br><br>
+                    We analyze your LinkedIn profile, website, and specialty area to create content that showcases your unique expertise and methodology. Whether you're a business coach, life coach, or specialized consultant, the content will reflect your specific approach and professional voice.</p>
                 </details>
                 <details class="faq-item">
                     <summary>How much time will this actually save me?</summary>
-                    <p>Our coaches and consultants save an average of 12+ hours per month. Instead of spending 30-45 minutes daily on content creation, you'll spend 30 seconds copying and pasting. That's more time for client sessions and business development.</p>
+                    <p>Our coaches and consultants save an average of 12+ hours per month.<br><br>
+                    Instead of spending 30-45 minutes daily on content creation, you'll spend 30 seconds copying and pasting. That's more time for client sessions and business development.</p>
                 </details>
                 <details class="faq-item">
                     <summary>Can I see some example posts first?</summary>
-                    <p>Yes! After signing up, we'll show you sample posts customized for your coaching or consulting niche. You'll see exactly how we'd position your expertise before your first post goes live.</p>
+                    <p>Yes! After signing up, we'll show you sample posts customized for your coaching or consulting niche.<br><br>
+                    You'll see exactly how we'd position your expertise before your first post goes live.</p>
                 </details>
                 <details class="faq-item">
                     <summary>What kind of results can I expect?</summary>
-                    <p>Most coaches and consultants see:<br>
-                        - 2-3x more profile views in first month<br>
-                        - 3-5 new client inquiries weekly<br>
-                        - 40% increase in post engagement<br>
-                        - Consistent thought leadership presence<br>
-                        Individual results may vary, but these are typical outcomes.</p>
+                    <p>Most coaches and consultants see:</p>
+                    <ul>
+                        <li>2-3x more profile views in first month</li>
+                        <li>3-5 new client inquiries weekly</li>
+                        <li>40% increase in post engagement</li>
+                        <li>Consistent thought leadership presence</li>
+                    </ul>
+                    <p>Individual results may vary, but these are typical outcomes.</p>
                 </details>
                 <details class="faq-item">
                     <summary>Is there a long-term contract?</summary>
-                    <p>No contracts at all. Start with your free month, then continue month-to-month for just $30. Cancel anytime - perfect for testing how this grows your practice.</p>
+                    <p>No contracts at all.<br><br>
+                    Start with your free month, then continue month-to-month for just $30. Cancel anytime - perfect for testing how this grows your practice.</p>
                 </details>
                 <details class="faq-item">
                     <summary>What if the content doesn't match my voice?</summary>
-                    <p>You have full control. Review each post before sharing, edit as needed, or skip any that don't feel right. Plus, our AI learns from your preferences to better match your style over time, just reply to your daily email with your feedback. We'll improve your posts from the next delivery onwards.</p>
+                    <p>You have full control. Review each post before sharing, edit as needed, or skip any that don't feel right.<br><br>
+                    Plus, our AI learns from your preferences to better match your style over time, just reply to your daily email with your feedback. We'll improve your posts from the next delivery onwards.</p>
                 </details>
                 <details class="faq-item">
-                    <summary>How is this different from other LinkedIn tools?</summary>
-                    <p>No complex dashboards or learning curves. Just open your email, copy, paste, and grow your presence. We focus on what coaches and consultants need: expert-level content that attracts clients, delivered simply.</p>
+                    <summary>How does my AI assistant learn my style?</summary>
+                    <p>Your AI assistant learns and improves daily through our email dialogue.<br><br>
+                    Don't like something about a post? Simply reply to the email with your feedback. Tomorrow's post will incorporate your preferences.<br><br>
+                    It's like having a personal content partner that gets better every day.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>How do I guide my AI to create better content?</summary>
+                    <p>Just reply to any post email with your thoughts:</p>
+                    <ul>
+                        <li>Make it more strategic</li>
+                        <li>Less corporate tone please</li>
+                        <li>Love this approach, more like this</li>
+                    </ul>
+                    <p>Your AI remembers your preferences and refines future posts accordingly. The more you interact, the better it gets at matching your voice.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>What if I want to adjust the content strategy?</summary>
+                    <p>Simply email your AI: "Let's focus more on leadership topics" or "I want to share more client success stories."<br><br>
+                    Your next posts will reflect this new direction. It's that simple.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>How quickly does the AI adapt to my feedback?</summary>
+                    <p>Immediately! Each email response you send shapes the very next post.<br><br>
+                    By the end of your free trial, your AI will have learned:</p>
+                    <ul>
+                        <li>Your exact tone of voice</li>
+                        <li>Your preferred topics</li>
+                        <li>Your content style</li>
+                        <li>Your audience's interests</li>
+                    </ul>
+                </details>
+                <details class="faq-item">
+                    <summary>Can I have different content themes?</summary>
+                    <p>Of course! Tell your AI assistant what you want:</p>
+                    <p>"Next week, let's focus on:"</p>
+                    <ul>
+                        <li>Client transformation stories</li>
+                        <li>Industry insights</li>
+                        <li>Methodology explanations</li>
+                    </ul>
+                    <p>Your AI will plan and adjust accordingly.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>What makes this different from other AI tools?</summary>
+                    <p>Direct relationship with your AI via email. No platforms to learn, no dashboards to manage.<br><br>
+                    Just natural conversation that improves your content daily. It's like having a dedicated content assistant who knows your business intimately.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>How do I know it's working?</summary>
+                    <p>You'll see both the content quality and engagement improve as your AI learns.<br><br>
+                    During your free trial, you'll experience:</p>
+                    <ul>
+                        <li>Increasingly personalized content</li>
+                        <li>Better audience response</li>
+                        <li>More natural tone matching</li>
+                        <li>Higher engagement rates</li>
+                    </ul>
+                </details>
+                <details class="faq-item">
+                    <summary>What happens after the free trial?</summary>
+                    <p>By day 30, your AI will be perfectly tuned to your voice and preferences.<br><br>
+                    Most coaches and consultants find the content so aligned with their style that continuing at $30/month becomes an easy decision.<br><br>
+                    But it's totally up to you - no pressure, no obligations.</p>
                 </details>
             </div>
             <div class="section-cta">

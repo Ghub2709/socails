@@ -90,7 +90,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.25rem 5%;
+    padding: 0.75rem 5%;
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: var(--card-shadow);
     position: fixed;
@@ -99,22 +99,25 @@ nav {
     right: 0;
     z-index: 10000;
     backdrop-filter: blur(10px);
+    gap: 2rem;
 }
 
 .nav-links {
     display: flex;
     gap: 2rem;
+    align-items: center;
 }
 
-.nav-links a {
+.nav-link {
     color: var(--text-color);
     text-decoration: none;
+    font-size: 0.875rem;
     font-weight: 500;
     transition: var(--transition-base);
     position: relative;
 }
 
-.nav-links a::after {
+.nav-link::after {
     content: '';
     position: absolute;
     width: 0;
@@ -123,10 +126,38 @@ nav {
     left: 0;
     background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
     transition: var(--transition-base);
+    opacity: 0;
 }
 
-.nav-links a:hover::after {
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link:hover::after {
     width: 100%;
+    opacity: 1;
+}
+
+.contact-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.contact-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition-base);
+}
+
+.contact-link:hover {
+    color: var(--primary-color);
 }
 
 .logo {
@@ -1248,199 +1279,48 @@ footer {
     margin-right: 0.5rem;
 }
 
-/* AI Assistant FAQ Section */
-.ai-assistant-faq {
-    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
-    color: white;
-    padding: 6rem 5%;
-    position: relative;
-    overflow: hidden;
-}
-
-.ai-assistant-faq::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
-    opacity: 0.5;
-    z-index: 1;
-}
-
-.ai-assistant-faq h2 {
-    color: white;
-    font-size: 2.5rem;
-    margin-bottom: 4rem;
-    position: relative;
-    z-index: 2;
-}
-
-.ai-faq-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-    position: relative;
-    z-index: 2;
-    max-width: 1400px;
+/* FAQ Section */
+.faq-grid {
+    max-width: 800px;
     margin: 0 auto;
 }
 
-.ai-faq-item {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 1.5rem;
-    padding: 2rem;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.ai-faq-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, 
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.5) 50%,
-        rgba(255, 255, 255, 0) 100%);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-}
-
-.ai-faq-item:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-}
-
-.ai-faq-item:hover::before {
-    transform: translateX(100%);
-}
-
-.ai-faq-question {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.ai-icon {
-    font-size: 2rem;
-    background: rgba(255, 255, 255, 0.1);
-    width: 3.5rem;
-    height: 3.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.faq-item {
+    background: white;
     border-radius: 1rem;
-    flex-shrink: 0;
-    position: relative;
-    overflow: hidden;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-base);
 }
 
-.ai-icon::after {
-    content: '';
+.faq-item:hover {
+    transform: translateX(10px);
+}
+
+.faq-item summary {
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    padding-right: 2rem;
+}
+
+.faq-item summary::after {
+    content: '+';
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, 
-        rgba(255, 255, 255, 0.2) 0%,
-        rgba(255, 255, 255, 0) 70%);
-    animation: pulse-light 2s infinite;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
 }
 
-@keyframes pulse-light {
-    0% { transform: scale(1); opacity: 0.5; }
-    50% { transform: scale(1.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 0.5; }
+.faq-item[open] summary::after {
+    transform: translateY(-50%) rotate(45deg);
 }
 
-.ai-faq-question h3 {
-    font-size: 1.25rem;
-    color: white;
-    margin: 0;
-    line-height: 1.4;
-}
-
-.ai-faq-answer {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
-.ai-faq-answer ul {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0;
-}
-
-.ai-faq-answer li {
-    padding: 0.5rem 0;
-    padding-left: 1.5rem;
-    position: relative;
-}
-
-.ai-faq-answer li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.ai-assistant-faq .section-cta {
-    margin-top: 4rem;
-    position: relative;
-    z-index: 2;
-}
-
-.ai-assistant-faq .cta-button {
-    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1.125rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.ai-assistant-faq .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
-}
-
-.ai-assistant-faq .cta-subtitle {
-    color: rgba(255, 255, 255, 0.8);
+.faq-item p {
     margin-top: 1rem;
-}
-
-/* Responsive adjustments for AI FAQ */
-@media (max-width: 768px) {
-    .ai-assistant-faq {
-        padding: 4rem 1rem;
-    }
-
-    .ai-faq-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .ai-faq-item {
-        padding: 1.5rem;
-    }
-
-    .ai-icon {
-        width: 3rem;
-        height: 3rem;
-        font-size: 1.5rem;
-    }
-
-    .ai-faq-question h3 {
-        font-size: 1.125rem;
-    }
+    color: #6B7280;
 }
 
 /* Enhanced Footer */
@@ -1486,26 +1366,6 @@ footer {
     padding-top: 2rem;
     text-align: center;
     color: #6B7280;
-}
-
-.contact-links {
-    display: flex;
-    gap: 2rem;
-    margin-right: 2rem;
-}
-
-.contact-link {
-    color: var(--text-color);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-    transition: var(--transition-base);
-}
-
-.contact-link:hover {
-    color: var(--primary-color);
 }
 
 .section-subtitle {
@@ -1744,6 +1604,7 @@ html {
     color: var(--text-color);
     font-size: 1.5rem;
     cursor: pointer;
+    padding: 0.5rem;
 }
 
 .mobile-menu {
@@ -2786,185 +2647,44 @@ section {
     }
 }
 
-/* Common FAQ Section - Matching AI Assistant Style */
-.faq {
-    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
-    color: white;
-    padding: 6rem 5%;
-    position: relative;
-    overflow: hidden;
+/* Add responsive navigation */
+@media (max-width: 1200px) {
+    nav {
+        padding: 0.75rem 2rem;
+    }
+
+    .nav-links {
+        gap: 1.5rem;
+    }
+
+    .contact-links {
+        gap: 1.5rem;
+    }
 }
 
-.faq::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
-    opacity: 0.5;
-    z-index: 1;
-}
-
-.faq h2 {
-    color: white;
-    font-size: 2.5rem;
-    margin-bottom: 4rem;
-    position: relative;
-    z-index: 2;
-}
-
-.faq-grid {
-    max-width: 1400px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-}
-
-.faq-item {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 1.5rem;
-    padding: 2rem;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.faq-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, 
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.5) 50%,
-        rgba(255, 255, 255, 0) 100%);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-}
-
-.faq-item:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-}
-
-.faq-item:hover::before {
-    transform: translateX(100%);
-}
-
-.faq-item summary {
-    font-size: 1.25rem;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    padding-right: 3rem;
-    position: relative;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.faq-item summary::-webkit-details-marker {
-    display: none;
-}
-
-.faq-item summary::before {
-    content: '🔍';
-    font-size: 1.5rem;
-    background: rgba(255, 255, 255, 0.1);
-    width: 3rem;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 1rem;
-    flex-shrink: 0;
-    position: relative;
-    overflow: hidden;
-}
-
-.faq-item summary::after {
-    content: '+';
-    position: absolute;
-    right: 1rem;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 1.5rem;
-    transition: transform 0.3s ease;
-}
-
-.faq-item[open] summary::after {
-    transform: rotate(45deg);
-}
-
-.faq-item p {
-    color: rgba(255, 255, 255, 0.8);
-    margin-top: 1.5rem;
-    margin-left: 4rem;
-    line-height: 1.6;
-    font-size: 1rem;
-}
-
-.faq-item p br {
-    content: '';
-    display: block;
-    margin: 0.5rem 0;
-}
-
-.faq .section-cta {
-    margin-top: 4rem;
-    position: relative;
-    z-index: 2;
-}
-
-.faq .cta-button {
-    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1.125rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.faq .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
-}
-
-.faq .cta-subtitle {
-    color: rgba(255, 255, 255, 0.8);
-    margin-top: 1rem;
+@media (max-width: 1024px) {
+    .contact-links {
+        display: none;
+    }
 }
 
 @media (max-width: 768px) {
-    .faq {
-        padding: 4rem 1rem;
+    nav {
+        padding: 0.75rem 1rem;
     }
 
-    .faq-item {
-        padding: 1.5rem;
+    .nav-links {
+        display: none;
     }
 
-    .faq-item summary {
-        font-size: 1.125rem;
-        padding-right: 2.5rem;
-    }
-
-    .faq-item summary::before {
-        width: 2.5rem;
-        height: 2.5rem;
-        font-size: 1.25rem;
-    }
-
-    .faq-item p {
-        margin-left: 3.5rem;
+    /* Add mobile menu button */
+    .mobile-menu-button {
+        display: block;
+        background: none;
+        border: none;
+        color: var(--text-color);
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
     }
 } 
