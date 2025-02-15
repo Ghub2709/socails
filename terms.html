@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - SOCAILS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><a href="./index.html" style="text-decoration: none; color: inherit;">SOCAILS</a></div>
+            <div class="nav-links">
+                <a href="/#features">Features</a>
+                <a href="/#pricing">Pricing</a>
+                <a href="/#testimonials">Success Stories</a>
+                <a href="/#faq">FAQ</a>
+            </div>
+            <div class="contact-links">
+                <a href="mailto:hello@socails.com" class="contact-link">
+                    <i class="far fa-envelope"></i> hello@socails.com
+                </a>
+                <a href="https://linkedin.com/company/socails" target="_blank" class="contact-link">
+                    <i class="fab fa-linkedin"></i> Follow us
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="legal-content">
+            <div class="section-content">
+                <h1>Terms of Service</h1>
+                <div class="legal-text">
+                    <h2>1. Acceptance of Terms</h2>
+                    <p>By accessing and using SOCAILS services, you accept and agree to be bound by the terms and provisions of this agreement.</p>
+
+                    <h2>2. Description of Service</h2>
+                    <p>SOCAILS provides AI-powered content creation services for LinkedIn, including but not limited to post generation, content optimization, and engagement analysis.</p>
+
+                    <h2>3. User Responsibilities</h2>
+                    <p>Users are responsible for:</p>
+                    <ul>
+                        <li>Maintaining the confidentiality of their account information</li>
+                        <li>All activities that occur under their account</li>
+                        <li>Ensuring their use of the service complies with all applicable laws</li>
+                    </ul>
+
+                    <h2>4. Payment Terms</h2>
+                    <p>Users agree to pay all fees associated with their chosen subscription plan. All fees are non-refundable unless otherwise specified.</p>
+
+                    <h2>5. Content Ownership</h2>
+                    <p>Users retain all rights to their original content. Generated content becomes the property of the user upon delivery.</p>
+
+                    <h2>6. Service Modifications</h2>
+                    <p>SOCAILS reserves the right to modify or discontinue the service with or without notice to the user.</p>
+
+                    <h2>7. Limitation of Liability</h2>
+                    <p>SOCAILS shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the service.</p>
+
+                    <h2>8. Termination</h2>
+                    <p>SOCAILS reserves the right to terminate or suspend access to our service immediately, without prior notice, for any reason whatsoever.</p>
+
+                    <h2>9. Changes to Terms</h2>
+                    <p>We reserve the right to modify these terms at any time. We will notify users of any material changes via email.</p>
+
+                    <h2>10. Contact Information</h2>
+                    <p>For any questions about these Terms of Service, please contact us at hello@socails.com.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo">SOCAILS</div>
+                <p class="footer-tagline">Empowering professionals with AI-driven social media excellence</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="/#features">Features</a></li>
+                    <li><a href="/#pricing">Pricing</a></li>
+                    <li><a href="/#testimonials">Testimonials</a></li>
+                    <li><a href="/#faq">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 SOCAILS. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="./terms.html">Terms of Service</a>
+                <a href="./privacy.html">Privacy Policy</a>
+                <a href="/#contact">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <script>
+        // Back to top functionality
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - SOCAILS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><a href="./index.html" style="text-decoration: none; color: inherit;">SOCAILS</a></div>
+            <div class="nav-links">
+                <a href="/#features">Features</a>
+                <a href="/#pricing">Pricing</a>
+                <a href="/#testimonials">Success Stories</a>
+                <a href="/#faq">FAQ</a>
+            </div>
+            <div class="contact-links">
+                <a href="mailto:hello@socails.com" class="contact-link">
+                    <i class="far fa-envelope"></i> hello@socails.com
+                </a>
+                <a href="https://linkedin.com/company/socails" target="_blank" class="contact-link">
+                    <i class="fab fa-linkedin"></i> Follow us
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="legal-content">
+            <div class="section-content">
+                <h1>Privacy Policy</h1>
+                <div class="legal-text">
+                    <h2>1. Information We Collect</h2>
+                    <p>We collect information that you provide directly to us, including:</p>
+                    <ul>
+                        <li>Account information (name, email, password)</li>
+                        <li>LinkedIn profile data</li>
+                        <li>Website content for analysis</li>
+                        <li>Communication preferences</li>
+                    </ul>
+
+                    <h2>2. How We Use Your Information</h2>
+                    <p>We use the collected information to:</p>
+                    <ul>
+                        <li>Provide and improve our services</li>
+                        <li>Generate personalized content</li>
+                        <li>Analyze and optimize performance</li>
+                        <li>Communicate with you about our services</li>
+                    </ul>
+
+                    <h2>3. Information Sharing</h2>
+                    <p>We do not sell your personal information. We may share your information with:</p>
+                    <ul>
+                        <li>Service providers who assist in our operations</li>
+                        <li>Professional advisors and legal authorities when required</li>
+                    </ul>
+
+                    <h2>4. Data Security</h2>
+                    <p>We implement appropriate security measures to protect your personal information from unauthorized access, alteration, or destruction.</p>
+
+                    <h2>5. Your Rights</h2>
+                    <p>You have the right to:</p>
+                    <ul>
+                        <li>Access your personal information</li>
+                        <li>Correct inaccurate data</li>
+                        <li>Request deletion of your data</li>
+                        <li>Opt-out of marketing communications</li>
+                    </ul>
+
+                    <h2>6. Cookies and Tracking</h2>
+                    <p>We use cookies and similar tracking technologies to improve user experience and analyze service usage.</p>
+
+                    <h2>7. Children's Privacy</h2>
+                    <p>Our service is not directed to children under 13. We do not knowingly collect information from children under 13.</p>
+
+                    <h2>8. Changes to Privacy Policy</h2>
+                    <p>We may update this policy periodically. We will notify you of any material changes via email.</p>
+
+                    <h2>9. Contact Us</h2>
+                    <p>For any questions about this Privacy Policy, please contact us at hello@socails.com.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo">SOCAILS</div>
+                <p class="footer-tagline">Empowering professionals with AI-driven social media excellence</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="/#features">Features</a></li>
+                    <li><a href="/#pricing">Pricing</a></li>
+                    <li><a href="/#testimonials">Testimonials</a></li>
+                    <li><a href="/#faq">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 SOCAILS. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="./terms.html">Terms of Service</a>
+                <a href="./privacy.html">Privacy Policy</a>
+                <a href="/#contact">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <script>
+        // Back to top functionality
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html> 

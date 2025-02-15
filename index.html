@@ -719,55 +719,92 @@
         </section>
 
         <section class="pricing hidden-section" id="pricing">
-            <h2>Simple, Transparent Pricing</h2>
+            <h2>Choose Your LinkedIn Authority Path</h2>
+            <p class="section-subtitle">Enjoy our simple, transparent pricing, yet the most powerful AI-driven LinkedIn content delivery system.</p>
+            <div class="pricing-toggle">
+                <span class="pricing-period">Monthly</span>
+                <label class="switch">
+                    <input type="checkbox" id="pricingToggle">
+                    <span class="slider"></span>
+                </label>
+                <span class="pricing-period">Yearly</span>
+                <span class="yearly-savings">Get 2 Months Free!</span>
+            </div>
             <div class="pricing-grid">
                 <div class="pricing-card">
-                    <h3>Starter</h3>
-                    <div class="price">
+                    <h3>Essential</h3>
+                    <div class="price" data-monthly="29" data-yearly="290">
                         <span class="currency">$</span>
                         <span class="amount">29</span>
                         <span class="period">/mo</span>
                     </div>
+                    <div class="plan-subtitle">Daily Thought Leadership</div>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> 30 AI-Generated Posts/Month</li>
-                        <li><i class="fas fa-check"></i> Basic Analytics</li>
-                        <li><i class="fas fa-check"></i> Content Calendar</li>
+                        <li><i class="fas fa-check"></i> 30 Expert Posts/Month (1 per day)</li>
+                        <li><i class="fas fa-check"></i> Morning Delivery via Email</li>
+                        <li><i class="fas fa-check"></i> Copy & Paste Ready Format</li>
+                        <li><i class="fas fa-check"></i> Personal AI Learning</li>
+                        <li class="feature-group">
+                            Two-Way Email Channel: <br
+                            <ul>
+                                <li><i class="fas fa-angle-right"></i> Share Your Knowledge</li>
+                                <li><i class="fas fa-angle-right"></i> Guide Your Content</li>
+                                <li><i class="fas fa-angle-right"></i> Refine Your Voice</li>
+                            </ul>
+                        </li>
                     </ul>
                     <a href="#hero-form" class="cta-button">Start Your Free Trial</a>
                     <p class="cta-subtitle">30-Day Trial - No Credit Card Required</p>
                 </div>
+
                 <div class="pricing-card popular">
                     <div class="popular-badge">Most Popular</div>
                     <h3>Pro</h3>
-                    <div class="price">
+                    <div class="price" data-monthly="69" data-yearly="690">
                         <span class="currency">$</span>
-                        <span class="amount">49</span>
+                        <span class="amount">69</span>
                         <span class="period">/mo</span>
                     </div>
+                    <div class="plan-subtitle">Complete Content Mix</div>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> 60 AI-Generated Posts/Month</li>
-                        <li><i class="fas fa-check"></i> Advanced Analytics</li>
-                        <li><i class="fas fa-check"></i> Content Calendar</li>
-                        <li><i class="fas fa-check"></i> Priority Support</li>
-                        <li><i class="fas fa-check"></i> Custom Branding</li>
+                        <li><i class="fas fa-check"></i> 60 Posts/Month (2 per day)</li>
+                        <li><i class="fas fa-check"></i> Thought Leadership</li>
+                        <li><i class="fas fa-check"></i> Weekend Buffer Posts</li>
+                        <li class="feature-group">
+                            Enhanced Content Strategy:<br
+                            <ul>
+                                <li><i class="fas fa-angle-right"></i> Competitor Analysis</li>
+                                <li><i class="fas fa-angle-right"></i> Industry Articles</li>
+                                <li><i class="fas fa-angle-right"></i> Case Studies</li>
+                            </ul>
+                        </li>
+                        
                     </ul>
                     <a href="#hero-form" class="cta-button animate-pulse">Get 30 Days Free</a>
                     <p class="cta-subtitle">Try Pro Free - No Payment Required</p>
                 </div>
+
                 <div class="pricing-card">
-                    <h3>Business</h3>
-                    <div class="price">
+                    <h3>Autopilot</h3>
+                    <div class="price" data-monthly="299" data-yearly="2990">
                         <span class="currency">$</span>
-                        <span class="amount">99</span>
+                        <span class="amount">299</span>
                         <span class="period">/mo</span>
                     </div>
+                    <div class="plan-subtitle">Everything Done For You</div>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Unlimited AI-Generated Posts</li>
-                        <li><i class="fas fa-check"></i> Premium Analytics</li>
-                        <li><i class="fas fa-check"></i> Content Calendar</li>
-                        <li><i class="fas fa-check"></i> Dedicated Support</li>
-                        <li><i class="fas fa-check"></i> Custom Branding</li>
-                        <li><i class="fas fa-check"></i> API Access</li>
+                        <li><i class="fas fa-check"></i> All Pro Features Included</li>
+                        <li><i class="fas fa-check"></i> Fully Automated Posting</li>
+                        <li><i class="fas fa-check"></i> Weekly Performance Report</li>
+                        <li><i class="fas fa-check"></i> Zero Manual Work Required</li>
+                        <li class="feature-group">
+                            Keep Email Channel For:<br
+                            <ul>
+                                <li><i class="fas fa-angle-right"></i> Strategy Adjustments</li>
+                                <li><i class="fas fa-angle-right"></i> Content Input</li>
+                                <li><i class="fas fa-angle-right"></i> Performance Reviews</li>
+                            </ul>
+                        </li>
                     </ul>
                     <a href="#hero-form" class="cta-button">Begin Free Trial</a>
                     <p class="cta-subtitle">30 Days Free Access - No Card Needed</p>
@@ -895,7 +932,9 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <div class="logo">SOCAILS</div>
+                <div class="logo">
+                    <a href="./index.html" style="text-decoration: none; color: inherit;">SOCAILS</a>
+                </div>
                 <p class="footer-tagline">Empowering professionals with AI-driven social media excellence</p>
                 <div class="social-links">
                     <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
@@ -912,14 +951,13 @@
                     <li><a href="#faq">FAQ</a></li>
                 </ul>
             </div>
-            <!-- Add more footer columns -->
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 SOCAILS. All rights reserved.</p>
+            <p>&copy; 2025 SOCAILS. All rights reserved.</p>
             <div class="footer-links">
-                <a href="#">Terms of Service</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Contact Us</a>
+                <a href="./terms.html">Terms of Service</a>
+                <a href="./privacy.html">Privacy Policy</a>
+                <a href="#hero-form">Contact Us</a>
             </div>
         </div>
     </footer>
@@ -992,11 +1030,15 @@
         // Handle reveal button click
         document.getElementById('reveal-content').addEventListener('click', revealContent);
 
-        // Handle navigation links
-        document.querySelectorAll('.nav-link').forEach(link => {
+        // Handle ALL navigation links (both nav and footer)
+        document.querySelectorAll('.nav-link, .footer-col a, .footer-links a').forEach(link => {
             link.addEventListener('click', async (e) => {
+                // Only handle internal links (starting with #)
+                const href = link.getAttribute('href');
+                if (!href || !href.startsWith('#')) return;
+                
                 e.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
+                const targetId = href.substring(1);
                 const targetSection = document.getElementById(targetId);
                 
                 // First reveal all content if needed
@@ -1204,6 +1246,45 @@
 
         // Start the animation when the page loads
         document.addEventListener('DOMContentLoaded', animateCounter);
+
+        // Add this to your existing script section
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.getElementById('pricingToggle');
+            const prices = document.querySelectorAll('.price');
+            const periods = document.querySelectorAll('.period');
+            const pricingPeriods = document.querySelectorAll('.pricing-period');
+
+            toggle.addEventListener('change', function() {
+                // Update pricing period text styles
+                pricingPeriods.forEach((period, index) => {
+                    period.classList.toggle('active', 
+                        (index === 0 && !toggle.checked) || 
+                        (index === 1 && toggle.checked)
+                    );
+                });
+
+                // Update prices with animation
+                prices.forEach(price => {
+                    const monthly = price.dataset.monthly;
+                    const yearly = price.dataset.yearly;
+                    const amountElement = price.querySelector('.amount');
+                    const periodElement = price.querySelector('.period');
+
+                    // Add animation class
+                    price.classList.add('changing');
+
+                    // Update price after small delay for animation
+                    setTimeout(() => {
+                        amountElement.textContent = toggle.checked ? yearly : monthly;
+                        periodElement.textContent = toggle.checked ? '/yr' : '/mo';
+                        price.classList.remove('changing');
+                    }, 150);
+                });
+            });
+
+            // Set initial state
+            pricingPeriods[0].classList.add('active');
+        });
     </script>
     <script src="counter.js"></script>
 </body>
