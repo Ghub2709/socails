@@ -366,10 +366,12 @@ section > p {
     }
 
     .hero-stats {
-        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
         gap: 2rem;
-        padding: 1.5rem;
-        margin: 2rem auto;
+        margin: 2rem 0;
+        text-align: center;
     }
 
     .stat {
@@ -863,9 +865,7 @@ footer {
 
 .footer-links {
     display: flex;
-    justify-content: center;
-    gap: 2rem;
-    width: 100%;
+    gap: 1.5rem;
 }
 
 @media (max-width: 768px) {
@@ -1713,6 +1713,47 @@ html {
     display: block;
 }
 
+/* G2 Badges Styling */
+.g2-badges {
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.g2-badges h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    color: #4B5563;
+}
+
+.g2-badges-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.g2-badges-image {
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .g2-badges {
+        margin: 1.5rem auto;
+    }
+    
+    .g2-badges h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .g2-badges-image {
+        width: 100%;
+    }
+}
+
 /* Reduce hover transform values */
 .benefit-card:hover {
     transform: translateY(-8px);
@@ -2513,6 +2554,7 @@ main {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    opacity: 1; /* Added for fade-in animation */
 }
 
 .reveal-button:hover {
@@ -2953,8 +2995,7 @@ input:checked + .slider:before {
 
 .footer-links {
     display: flex;
-    justify-content: center;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 @media (max-width: 768px) {
@@ -3011,9 +3052,7 @@ footer {
 
 .footer-links {
     display: flex;
-    justify-content: center;
-    gap: 2rem;
-    width: 100%;
+    gap: 1.5rem;
 }
 
 @media (max-width: 768px) {

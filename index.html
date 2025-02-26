@@ -110,8 +110,6 @@
                         <span>Attract New Premium Clients</span>
                     </div>
                 </div>
-                <p class="value-prop">Just Your Voice, Amplified by AI, Consistently Posted on LinkedIn.
-                    <b>Result: Only One New Client Pays for Years of This Service.</b></p>
                 <div class="hero-stats">
                     <div class="stat">
                         <span class="stat-number">1,497+</span>
@@ -126,6 +124,7 @@
                         <span class="stat-label">📈 Get 3x More Client Inquiries</span>
                     </div>
                 </div>
+                
                 <form class="lead-form" id="hero-form" action="/submit" method="POST">
                     <h1>Claim Your First 30 Days of Expert Content | FREE</h1>
                     <p class="subtitle">Join 1,497+ Coaches & Consultants Already Saving 12+ Hours Weekly</p>
@@ -178,7 +177,16 @@
                         </div>
                     </div>
                 </form>
-                <button id="reveal-content" class="reveal-button">
+                
+                <!-- G2 Social Proof Badges -->
+                <div class="g2-badges">
+                    <h3>Recognized Excellence on G2</h3>
+                    <div class="g2-badges-container">
+                        <img src="socails_references_2025.svg" alt="G2 Awards - Best Results, Highest User Adoption, Leader, Highly Recommended, Best Usability, Most Implementable, Momentum Leader" class="g2-badges-image">
+                    </div>
+                </div>
+                
+                <button id="reveal-content" class="reveal-button" style="display: none;">
                     <i class="fas fa-info-circle"></i> See In Detail How This Will Transform Your LinkedIn Presence
                 </button>
             </div>
@@ -1013,6 +1021,64 @@
         // Handle reveal button click
         document.getElementById('reveal-content').addEventListener('click', revealContent);
 
+        // Variables to track scroll position and button visibility
+        let hasReachedEndOfHero = false;
+        let buttonTimeoutId = null;
+        
+        // Function to check if user has scrolled to the end of the hero section
+        function checkScrollPosition() {
+            const heroSection = document.querySelector('.hero');
+            const revealButton = document.getElementById('reveal-content');
+            
+            if (!heroSection || !revealButton) return;
+            
+            const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+            const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+            const windowBottom = scrollPosition + window.innerHeight;
+            
+            console.log('Scroll check:', { 
+                heroBottom, 
+                windowBottom, 
+                hasReached: windowBottom >= heroBottom,
+                hasReachedEndOfHero
+            });
+            
+            // If user has reached the end of the hero section
+            if (windowBottom >= heroBottom && !hasReachedEndOfHero) {
+                hasReachedEndOfHero = true;
+                
+                // Show the reveal button after 2 seconds
+                buttonTimeoutId = setTimeout(() => {
+                    revealButton.style.display = 'block';
+                    // Add a fade-in animation
+                    revealButton.style.opacity = '0';
+                    setTimeout(() => {
+                        revealButton.style.transition = 'opacity 0.5s ease';
+                        revealButton.style.opacity = '1';
+                    }, 50);
+                }, 2000); // 2 seconds delay
+            }
+            
+            // If user scrolls back up before reaching the end of the hero section
+            if (windowBottom < heroBottom && hasReachedEndOfHero) {
+                hasReachedEndOfHero = false;
+                // Clear the timeout if it's still pending
+                if (buttonTimeoutId) {
+                    clearTimeout(buttonTimeoutId);
+                    buttonTimeoutId = null;
+                }
+                // Hide the button if it's already visible
+                revealButton.style.display = 'none';
+                revealButton.style.opacity = '0';
+            }
+        }
+        
+        // Add scroll event listener to check scroll position
+        window.addEventListener('scroll', checkScrollPosition);
+        
+        // Check scroll position on page load
+        window.addEventListener('load', checkScrollPosition);
+
         // Handle ALL navigation links (both nav and footer)
         document.querySelectorAll('.nav-link, .footer-col a, .footer-links a').forEach(link => {
             link.addEventListener('click', async (e) => {
@@ -1191,11 +1257,16 @@
         
         window.addEventListener('scroll', () => {
             const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+            
+            // Back to top button visibility
             if (scrollPosition > 300) {
                 backToTopButton.classList.add('visible');
             } else {
                 backToTopButton.classList.remove('visible');
             }
+            
+            // We're using the checkScrollPosition function for the reveal button
+            // so we don't need to duplicate that logic here
         });
         
         backToTopButton.addEventListener('click', () => {
