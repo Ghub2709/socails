@@ -3065,4 +3065,121 @@ footer {
         gap: 1rem;
         flex-wrap: wrap;
     }
+}
+
+/* Blog Promotion Section */
+.blog-promo {
+    background: linear-gradient(135deg, #f6f7ff 0%, #fff 100%);
+    padding: 6rem 5%;
+}
+
+.blog-promo-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    margin-top: 3rem;
+    transition: all 0.3s ease;
+}
+
+.blog-promo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--hover-shadow);
+}
+
+.blog-promo-content {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.blog-category {
+    background: linear-gradient(to right, #FF6B6B, #FF8E53);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    width: fit-content;
+}
+
+.blog-promo-content h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+    color: var(--text-color);
+}
+
+.blog-promo-content p {
+    color: #6B7280;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.blog-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    color: #6B7280;
+    font-size: 0.875rem;
+}
+
+.blog-stats span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.blog-promo-image {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.blog-promo-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.blog-promo-card:hover .blog-promo-image img {
+    transform: scale(1.05);
+}
+
+@media (max-width: 1024px) {
+    .blog-promo-card {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .blog-promo-content {
+        padding: 2rem;
+    }
+    
+    .blog-promo-image {
+        height: 300px;
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-promo {
+        padding: 4rem 1rem;
+    }
+    
+    .blog-promo-content h3 {
+        font-size: 1.5rem;
+    }
+    
+    .blog-stats {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 } 
