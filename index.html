@@ -42,122 +42,6 @@
             left: 0;
             color: #007bff;
         }
-        
-        /* Add floating CTA styles */
-        .floating-cta {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            border: none;
-            animation: pulse 2s infinite;
-        }
-
-        .floating-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.6);
-        }
-
-        .floating-cta i {
-            font-size: 1.2em;
-        }
-
-        /* Add urgency indicator styles */
-        .urgency-indicator {
-            background: rgba(255, 99, 97, 0.1);
-            border: 1px solid #FF6B6B;
-            border-radius: 8px;
-            padding: 12px 20px;
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            color: #FF6B6B;
-            font-weight: 600;
-            animation: fadeInOut 2s infinite;
-            text-align: center;
-            width: 100%;
-        }
-
-        .urgency-indicator i {
-            color: #FF6B6B;
-        }
-
-        /* Update button styles to match the image */
-        .lead-form button[type="submit"] {
-            background: linear-gradient(to right, #FF6B6B, #FF8E53);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 15px 30px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .lead-form button[type="submit"]:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-        }
-
-        .lead-form button[type="submit"] i {
-            transition: transform 0.3s ease;
-        }
-
-        .lead-form button[type="submit"]:hover i {
-            transform: translateX(5px);
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(124, 58, 237, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
-            }
-        }
-
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
-        }
-
-        /* Enhance form visibility */
-        .lead-form {
-            border: 2px solid #7C3AED;
-            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
-        }
-
-        .lead-form h1 {
-            color: #7C3AED;
-            animation: highlight 2s infinite;
-        }
-
-        @keyframes highlight {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
     </style>
 </head>
 <body>
@@ -242,10 +126,6 @@
                 </div>
                 
                 <form class="lead-form" id="hero-form" action="/submit" method="POST">
-                    <div class="urgency-indicator">
-                        <i class="fas fa-clock"></i>
-                        <span>Limited Time Offer: Only <span id="spots-left">6</span> Spots Left This Month!</span>
-                    </div>
                     <h1>Claim Your First 30 Days of Expert Content | FREE</h1>
                     <p class="subtitle">Join 1,497+ Coaches & Consultants Already Saving 12+ Hours Weekly</p>
                     
@@ -1471,33 +1351,6 @@
             // Set initial state
             pricingPeriods[0].classList.add('active');
         });
-
-        // Add this to your existing script section
-        function scrollToForm() {
-            const form = document.getElementById('hero-form');
-            form.scrollIntoView({ behavior: 'smooth' });
-            form.classList.add('highlight');
-            setTimeout(() => form.classList.remove('highlight'), 1000);
-        }
-
-        // Add spots countdown
-        function updateSpots() {
-            const spotsElement = document.getElementById('spots-left');
-            let spots = parseInt(spotsElement.textContent);
-            if (spots > 1) {
-                const newSpots = spots - 1;
-                spotsElement.textContent = newSpots;
-                if (newSpots <= 3) {
-                    spotsElement.style.color = '#FF0000';
-                }
-            }
-        }
-
-        // Update spots every 3-7 minutes randomly
-        setInterval(() => {
-            const randomDelay = Math.floor(Math.random() * (420000 - 180000) + 180000);
-            setTimeout(updateSpots, randomDelay);
-        }, 300000);
     </script>
     <script src="counter.js"></script>
 </body>

@@ -605,6 +605,10 @@
         <i class="fas fa-arrow-up"></i>
     </a>
     
+    <button id="reveal-content" class="reveal-button" style="display: none; position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 1000; background-color: rgba(255, 107, 107, 0.9); color: white; border: 1px solid #FF6B6B; padding: 12px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3); transition: all 0.3s ease; cursor: pointer;">
+        <i class="fas fa-info-circle" style="color: white;"></i> See In Detail How This Will Transform Your LinkedIn Presence
+    </button>
+    
     <script>
         // Mobile menu functionality
         const mobileMenuButton = document.querySelector('.mobile-menu-button');
@@ -643,6 +647,78 @@
                 element.classList.add('animate-pulse');
             });
         });
+
+        // Handle reveal button click and navigation
+        function revealContent() {
+            // Redirect to the hero form on the index page
+            window.location.href = 'index.html#hero-form';
+        }
+
+        // Handle reveal button click
+        const revealButton = document.getElementById('reveal-content');
+        if (revealButton) {
+            revealButton.addEventListener('click', revealContent);
+        }
+
+        // Variables to track button visibility
+        let buttonHasAppeared = false;
+        let buttonTimeoutId = null;
+        
+        // Function to check if the end marker is visible
+        function checkEndMarkerVisibility() {
+            const revealButton = document.getElementById('reveal-content');
+            const endMarker = document.getElementById('page-end-marker');
+            
+            if (!revealButton || !endMarker || buttonHasAppeared) return;
+            
+            // Get the position of the end marker
+            const endMarkerRect = endMarker.getBoundingClientRect();
+            
+            // Check if the end marker is fully visible in the viewport
+            const isEndMarkerVisible = (
+                endMarkerRect.top >= 0 &&
+                endMarkerRect.bottom <= window.innerHeight
+            );
+            
+            // If the end marker is visible and we haven't shown the button yet
+            if (isEndMarkerVisible && !buttonHasAppeared) {
+                // Set flag to true so button stays visible permanently
+                buttonHasAppeared = true;
+                
+                // Show the reveal button after a short delay
+                buttonTimeoutId = setTimeout(() => {
+                    revealButton.style.display = 'block';
+                    // Add a fade-in animation
+                    revealButton.style.opacity = '0';
+                    setTimeout(() => {
+                        revealButton.style.transition = 'opacity 0.5s ease';
+                        revealButton.style.opacity = '1';
+                    }, 50);
+                    
+                    // Add a subtle hover effect
+                    revealButton.addEventListener('mouseenter', () => {
+                        revealButton.style.backgroundColor = 'rgba(255, 142, 83, 0.95)';
+                        revealButton.style.color = 'white';
+                        revealButton.style.transform = 'translateX(-50%) translateY(-4px)';
+                        revealButton.style.boxShadow = '0 6px 12px rgba(255, 142, 83, 0.4)';
+                    });
+                    
+                    revealButton.addEventListener('mouseleave', () => {
+                        revealButton.style.backgroundColor = 'rgba(255, 107, 107, 0.9)';
+                        revealButton.style.color = 'white';
+                        revealButton.style.transform = 'translateX(-50%)';
+                        revealButton.style.boxShadow = '0 4px 10px rgba(255, 107, 107, 0.3)';
+                    });
+                    
+                }, 500);
+            }
+        }
+        
+        // Add scroll event listener to check end marker visibility
+        window.addEventListener('scroll', checkEndMarkerVisibility);
+        
+        // Check end marker visibility on page load
+        window.addEventListener('load', checkEndMarkerVisibility);
     </script>
 </body>
 </html> 
