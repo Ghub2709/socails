@@ -42,6 +42,44 @@
             left: 0;
             color: #007bff;
         }
+        
+        /* Reveal button container styles */
+        .reveal-button-container {
+            min-height: 60px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Reveal button styles */
+        .reveal-button {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 30px;
+            background-color: #f8f9fa;
+            color: #333;
+            border: 2px solid #e9ecef;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .reveal-button:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            color: #333;
+        }
+        
+        .reveal-button i {
+            font-size: 18px;
+            color: #6a11cb;
+        }
     </style>
 </head>
 <body>
@@ -186,9 +224,12 @@
                     </div>
                 </div>
                 
-                <button id="reveal-content" class="reveal-button" style="display: none;">
-                    <i class="fas fa-info-circle"></i> See In Detail How This Will Transform Your LinkedIn Presence
-                </button>
+                <!-- Button container to prevent layout shift -->
+                <div class="reveal-button-container">
+                    <button id="reveal-content" class="reveal-button" style="display: block; opacity: 0; pointer-events: none;" type="button">
+                        <i class="fas fa-info-circle"></i> See In Detail How This Will Transform Your LinkedIn Presence
+                    </button>
+                </div>
             </div>
         </section>
 
@@ -995,23 +1036,107 @@
             }
         })();
 
-        // Handle reveal button click and navigation
-        function revealContent() {
-            // Check if we're on a blog post page by looking at the URL
-            const currentPath = window.location.pathname;
-            const isBlogPost = currentPath.includes('neuroscience-social-media-hooks') || 
-                              (currentPath !== '/' && currentPath !== '/index.html' && currentPath !== '/index');
+        // Variables to track scroll position and button visibility
+        let hasReachedEndOfHero = false;
+        let buttonTimeoutId = null;
+        let buttonHasBeenRevealed = false; // Track if button has been revealed
+        
+        // Function to check if user has scrolled to the end of the hero section
+        function checkScrollPosition() {
+            const heroSection = document.querySelector('.hero');
+            const revealButton = document.getElementById('reveal-content');
             
-            if (isBlogPost) {
-                // If on a blog post, redirect to the hero form
-                window.location.href = 'index.html#hero-form';
+            if (!heroSection || !revealButton) return;
+            
+            const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+            const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+            const windowBottom = scrollPosition + window.innerHeight;
+            
+            console.log('Scroll check:', { 
+                heroBottom, 
+                windowBottom, 
+                hasReached: windowBottom >= heroBottom,
+                hasReachedEndOfHero,
+                buttonHasBeenRevealed
+            });
+            
+            // If button has already been revealed, don't hide it again
+            if (buttonHasBeenRevealed) {
                 return;
             }
             
-            // If on the index page, continue with the original functionality
+            // If user has reached the end of the hero section
+            if (windowBottom >= heroBottom && !hasReachedEndOfHero) {
+                hasReachedEndOfHero = true;
+                
+                // Show the reveal button after 2 seconds
+                buttonTimeoutId = setTimeout(() => {
+                    // Make button visible but keep it in the same place
+                    revealButton.style.display = 'block';
+                    revealButton.style.opacity = '0';
+                    
+                    // Fade it in
+                    setTimeout(() => {
+                        revealButton.style.transition = 'opacity 0.5s ease';
+                        revealButton.style.opacity = '1';
+                        // Enable pointer events only when visible
+                        revealButton.style.pointerEvents = 'auto';
+                        // Mark button as revealed
+                        buttonHasBeenRevealed = true;
+                    }, 50);
+                }, 2000); // 2 seconds delay
+            }
+            
+            // If user scrolls back up before reaching the end of the hero section
+            // and before the button has been revealed
+            if (windowBottom < heroBottom && hasReachedEndOfHero && !buttonHasBeenRevealed) {
+                hasReachedEndOfHero = false;
+                // Clear the timeout if it's still pending
+                if (buttonTimeoutId) {
+                    clearTimeout(buttonTimeoutId);
+                    buttonTimeoutId = null;
+                }
+                
+                // Hide the button by making it transparent but keep it in the layout
+                revealButton.style.opacity = '0';
+                // Disable pointer events when invisible
+                revealButton.style.pointerEvents = 'none';
+            }
+        }
+
+        // Handle reveal button click and navigation
+        function revealContent() {
+            // On GitHub Pages, the pathname might include the repository name
+            // So we need to check if we're on the index page in a more robust way
+            const currentPath = window.location.pathname;
+            const pathSegments = currentPath.split('/').filter(segment => segment.length > 0);
+            
+            // If the last segment contains 'neuroscience-social-media-hooks', it's a blog post
+            const lastSegment = pathSegments[pathSegments.length - 1] || '';
+            const isBlogPost = lastSegment.includes('neuroscience-social-media-hooks');
+            
+            // Check if we're on a GitHub Pages site
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            
+            // If it's a blog post, redirect to the hero form
+            if (isBlogPost) {
+                // For GitHub Pages, we might need to include the repository name in the path
+                const redirectPath = isGitHubPages ? 
+                    `${pathSegments.length > 0 ? '/' + pathSegments[0] : ''}/index.html#hero-form` : 
+                    'index.html#hero-form';
+                
+                window.location.href = redirectPath;
+                return;
+            }
+            
+            // If we're here, we're on the index page or a page where we want to reveal content
             const revealButton = document.getElementById('reveal-content');
-            // Hide the reveal button
-            revealButton.style.display = 'none';
+            
+            // Hide the button by making it transparent but keep it in the layout
+            if (revealButton) {
+                revealButton.style.opacity = '0';
+                revealButton.style.pointerEvents = 'none';
+            }
             
             // Show all hidden sections with a smooth animation
             document.querySelectorAll('.hidden-section').forEach((section, index) => {
@@ -1031,65 +1156,31 @@
         }
 
         // Handle reveal button click
-        document.getElementById('reveal-content').addEventListener('click', revealContent);
-
-        // Variables to track scroll position and button visibility
-        let hasReachedEndOfHero = false;
-        let buttonTimeoutId = null;
-        
-        // Function to check if user has scrolled to the end of the hero section
-        function checkScrollPosition() {
-            const heroSection = document.querySelector('.hero');
+        document.addEventListener('DOMContentLoaded', function() {
             const revealButton = document.getElementById('reveal-content');
-            
-            if (!heroSection || !revealButton) return;
-            
-            const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-            const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-            const windowBottom = scrollPosition + window.innerHeight;
-            
-            console.log('Scroll check:', { 
-                heroBottom, 
-                windowBottom, 
-                hasReached: windowBottom >= heroBottom,
-                hasReachedEndOfHero
-            });
-            
-            // If user has reached the end of the hero section
-            if (windowBottom >= heroBottom && !hasReachedEndOfHero) {
-                hasReachedEndOfHero = true;
-                
-                // Show the reveal button after 2 seconds
-                buttonTimeoutId = setTimeout(() => {
-                    revealButton.style.display = 'block';
-                    // Add a fade-in animation
-                    revealButton.style.opacity = '0';
-                    setTimeout(() => {
-                        revealButton.style.transition = 'opacity 0.5s ease';
-                        revealButton.style.opacity = '1';
-                    }, 50);
-                }, 2000); // 2 seconds delay
-            }
-            
-            // If user scrolls back up before reaching the end of the hero section
-            if (windowBottom < heroBottom && hasReachedEndOfHero) {
-                hasReachedEndOfHero = false;
-                // Clear the timeout if it's still pending
-                if (buttonTimeoutId) {
-                    clearTimeout(buttonTimeoutId);
-                    buttonTimeoutId = null;
-                }
-                // Hide the button if it's already visible
-                revealButton.style.display = 'none';
+            if (revealButton) {
+                // Initialize button state
+                revealButton.style.display = 'block';
                 revealButton.style.opacity = '0';
+                revealButton.style.pointerEvents = 'none';
+                
+                // Add click event listener
+                revealButton.addEventListener('click', function(e) {
+                    // Prevent default behavior to avoid any automatic navigation
+                    e.preventDefault();
+                    // Stop event propagation to prevent other handlers from capturing it
+                    e.stopPropagation();
+                    // Call the reveal content function
+                    revealContent();
+                });
             }
-        }
-        
-        // Add scroll event listener to check scroll position
-        window.addEventListener('scroll', checkScrollPosition);
-        
-        // Check scroll position on page load
-        window.addEventListener('load', checkScrollPosition);
+            
+            // Check scroll position on page load
+            checkScrollPosition();
+            
+            // Add scroll event listener to check scroll position
+            window.addEventListener('scroll', checkScrollPosition);
+        });
 
         // Handle ALL navigation links (both nav and footer)
         document.querySelectorAll('.nav-link, .footer-col a, .footer-links a').forEach(link => {
@@ -1108,7 +1199,9 @@
                     // Hide reveal button if it exists
                     const revealButton = document.getElementById('reveal-content');
                     if (revealButton) {
-                        revealButton.style.display = 'none';
+                        // Hide the button by making it transparent but keep it in the layout
+                        revealButton.style.opacity = '0';
+                        revealButton.style.pointerEvents = 'none';
                     }
 
                     // Show all sections immediately
